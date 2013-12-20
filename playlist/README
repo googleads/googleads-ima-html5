@@ -1,0 +1,6 @@
+Copyright 2013 Google Inc. All Rights Reserved.
+You may study, modify, and use this example for any purpose.
+Note that this example is provided "as is", WITHOUT WARRANTY
+of any kind either expressed or implied.
+
+This sample expands on the advanced sample to add support for a playlist of videos. Use this sample to learn how to call the same ad tag multiple times on one page load, making the same ads request before multiple video plays on the same page.
