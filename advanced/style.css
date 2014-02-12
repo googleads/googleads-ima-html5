@@ -1,0 +1,116 @@
+body {
+  font-family: arial, verdana, sans-serif;
+  overflow: hidden;
+}
+
+header, footer { text-align:center; width: 100%; }
+
+header {
+  height: 40px;
+  font-size: 40px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+footer {
+  margin-top: 20px;
+}
+
+#container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 728px;
+}
+
+#videoplayer {
+  position: relative;
+  background-color: #000;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px rgba(50, 50, 50, 0.95);
+  border: 2px #ccc solid;
+  width: 640px;
+  height: 360px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+#content-wrapper {
+  position:relative;
+  top: 0px;
+  left: 0px
+}
+
+#playpause {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  height: 40px;
+  width: 100px;
+  border-style: none;
+  font-weight: bold;
+  font-size: 25px;
+  opacity: 0.5;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px transparent solid;
+  color: #000;
+  cursor: pointer;
+  line-height: 0;
+}
+
+#playpause:hover {
+  border: 1px #f00 solid;
+  color: #f00;
+}
+
+#fullscreen {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  height: 40px;
+  width: 100px;
+  border-style: none;
+  font-weight: bold;
+  font-size: 25px;
+  opacity: 0.5;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px transparent solid;
+  color: #000;
+  cursor: pointer;
+  line-height: 0;
+}
+
+#fullscreen:hover {
+  border: 1px #f00 solid;
+  color: #f00;
+}
+
+#content, #adcontainer {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 640px;
+  height: 360px;
+}
+
+#console {
+  font-family: courier, monospace;
+  font-size: 12px;
+  margin-top: 20px;
+  height: 200px;
+  width: 630px;
+  padding: 5px;
+  border: 1px #ccc solid;
+  overflow-y: scroll;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#companionDiv {
+  width: 728px;
+  height: 90px;
+  margin-top: 20px;
+}
