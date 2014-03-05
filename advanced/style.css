@@ -114,3 +114,9 @@ footer {
   height: 90px;
   margin-top: 20px;
 }
+
+.urlLink {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}

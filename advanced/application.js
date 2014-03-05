@@ -7,6 +7,12 @@
  * Handles user interaction and creates the player and ads controllers.
  */
 var Application = function() {
+  this.adTagBox_ = document.getElementById('tagText');
+  this.sampleAdTag_ = document.getElementById('sampleAdTag');
+  this.sampleAdTag_.addEventListener(
+      'click',
+      this.bind_(this, this.onSampleAdTagClick_),
+      false);
   this.console_ = document.getElementById('console');
   this.playButton_ = document.getElementById('playpause');
   this.playButton_.addEventListener(
@@ -33,6 +39,7 @@ var Application = function() {
         false);
   }
 
+
   this.playing_ = false;
   this.adsActive_ = false;
   this.adsDone_ = false;
@@ -40,11 +47,17 @@ var Application = function() {
 
   this.videoPlayer_ = new VideoPlayer();
   this.ads_ = new Ads(this, this.videoPlayer_);
-  this.adTagUrl_ = 'http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=%2F6062%2Fiab_vast_samples&ciu_szs=300x250%2C728x90&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]&cust_params=iab_vast_samples%3Dlinear';
+  this.adTagUrl_ = '';
 
   this.videoPlayer_.registerVideoEndedCallback(
       this.bind_(this, this.onContentEnded_));
 };
+
+Application.prototype.SAMPLE_AD_TAG_ = 'http://pubads.g.doubleclick.net/gampad/ads?sz=640x360' +
+    '&iu=/6062/iab_vast_samples/skippable&ciu_szs=300x250,728x90&impl=s' +
+    '&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1' +
+    '&url=[referrer_url]&correlator=[timestamp]';
+
 
 Application.prototype.log = function(message) {
   console.log(message);
@@ -74,9 +87,18 @@ Application.prototype.bind_ = function(thisObj, fn) {
   };
 };
 
+Application.prototype.onSampleAdTagClick_ = function() {
+  this.adTagBox_.value = this.SAMPLE_AD_TAG_;
+};
+
 Application.prototype.onClick_ = function() {
   if (!this.adsDone_) {
-
+    if (this.adTagBox_.value == '') {
+      this.log('Error: please fill in an ad tag');
+      return;
+    } else {
+      this.adTagUrl_ = this.adTagBox_.value;
+    }
     // The user clicked/tapped - inform the ads controller that this code
     // is being run in a user action thread.
     this.ads_.initialUserAction();
