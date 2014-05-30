@@ -10,6 +10,8 @@ var Ads = function(application, videoPlayer) {
   this.application_ = application;
   this.videoPlayer_ = videoPlayer;
   this.contentCompleteCalled_ = false;
+  // Call setLocale() to localize language text and downloaded swfs
+  // google.ima.settings.setLocale('fr');
   this.adDisplayContainer_ =
       new google.ima.AdDisplayContainer(this.videoPlayer_.adContainer);
   this.adsLoader_ = new google.ima.AdsLoader(this.adDisplayContainer_);
