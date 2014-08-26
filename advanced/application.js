@@ -134,7 +134,8 @@ Application.prototype.onClick_ = function() {
 Application.prototype.onFullscreenClick_ = function() {
   if (this.fullscreen) {
     // The video is currently in fullscreen mode
-    var cancelFullscreen = document.exitFullScreen ||
+    var cancelFullscreen = document.exitFullscreen ||
+        document.exitFullScreen ||
         document.webkitCancelFullScreen ||
         document.mozCancelFullScreen;
     if (cancelFullscreen) {
@@ -144,7 +145,10 @@ Application.prototype.onFullscreenClick_ = function() {
     }
   } else {
     // Try to enter fullscreen mode in the browser
-    var requestFullscreen = document.documentElement.requestFullScreen ||
+    var requestFullscreen = document.documentElement.requestFullscreen ||
+        document.documentElement.webkitRequestFullscreen ||
+        document.documentElement.mozRequestFullscreen ||
+        document.documentElement.requestFullScreen ||
         document.documentElement.webkitRequestFullScreen ||
         document.documentElement.mozRequestFullScreen;
     if (requestFullscreen) {

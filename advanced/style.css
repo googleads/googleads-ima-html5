@@ -68,7 +68,7 @@ footer {
 #fullscreen {
   position: absolute;
   bottom: 20px;
-  right: 20px;
+  left: 140px;
   height: 40px;
   width: 100px;
   border-style: none;
