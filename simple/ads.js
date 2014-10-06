@@ -7,8 +7,14 @@ var adsManager;
 var adsLoader;
 var adDisplayContainer;
 var intervalTimer;
+var playButton;
+var videoContent;
 
-var videoContent = document.getElementById('contentElement');
+function init() {
+  videoContent = document.getElementById('contentElement');
+  playButton = document.getElementById('playButton');
+  playButton.addEventListener('click', requestAds);
+}
 
 function createAdDisplayContainer() {
   // We assume the adContainer is the DOM id of the element that will house
@@ -156,5 +162,5 @@ function onContentResumeRequested() {
 
 }
 
-//Kick off the ads request
-requestAds();
+// Wire UI element references and UI event listeners.
+init();
