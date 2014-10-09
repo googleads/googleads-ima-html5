@@ -92,6 +92,10 @@ footer {
   color: #f00;
 }
 
+#content {
+  overflow: hidden;
+}
+
 #content, #adcontainer {
   position: absolute;
   top: 0px;
