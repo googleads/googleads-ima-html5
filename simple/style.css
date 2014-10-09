@@ -15,6 +15,7 @@
 #contentElement {
   width: 640px;
   height: 360px;
+  overflow: hidden;
 }
 
 #playButton {
