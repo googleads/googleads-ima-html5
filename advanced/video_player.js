@@ -20,6 +20,7 @@ VideoPlayer.prototype.preloadContent = function(contentLoadedAction) {
   // simulate playback to enable the video element for later program-triggered
   // playback.
   if (this.isMobilePlatform()) {
+    this.preloadListener_ = contentLoadedAction;
     this.contentPlayer.addEventListener(
         'loadedmetadata',
         contentLoadedAction,
@@ -27,6 +28,16 @@ VideoPlayer.prototype.preloadContent = function(contentLoadedAction) {
     this.contentPlayer.load();
   } else {
     contentLoadedAction();
+  }
+};
+
+VideoPlayer.prototype.removePreloadListener = function() {
+  if (this.preloadListener_) {
+    this.contentPlayer.removeEventListener(
+        'loadedmetadata',
+        this.preloadListener_,
+        false);
+    this.preloadListener_ = null;
   }
 };
 
@@ -56,8 +67,9 @@ VideoPlayer.prototype.resize = function(
 };
 
 VideoPlayer.prototype.registerVideoEndedCallback = function(callback) {
-  this.contentPlayer.addEventListener(
-      'ended',
-      callback,
-      false);
+  this.contentPlayer.addEventListener('ended', callback, false);
+};
+
+VideoPlayer.prototype.removeVideoEndedCallback = function(callback) {
+  this.contentPlayer.removeEventListener('ended', callback, false);
 };

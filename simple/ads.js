@@ -20,7 +20,8 @@ function createAdDisplayContainer() {
   // We assume the adContainer is the DOM id of the element that will house
   // the ads.
   adDisplayContainer =
-      new google.ima.AdDisplayContainer(document.getElementById('adContainer'));
+      new google.ima.AdDisplayContainer(
+          document.getElementById('adContainer'), videoContent);
 }
 
 function requestAds() {
@@ -28,6 +29,7 @@ function requestAds() {
   createAdDisplayContainer();
   // Initialize the container. Must be done via a user action on mobile devices.
   adDisplayContainer.initialize();
+  videoContent.load();
   // Create ads loader.
   adsLoader = new google.ima.AdsLoader(adDisplayContainer);
   // Listen and respond to ads loaded and error events.
@@ -62,8 +64,11 @@ function requestAds() {
 
 function onAdsManagerLoaded(adsManagerLoadedEvent) {
   // Get the ads manager.
+  var adsRenderingSettings = new google.ima.AdsRenderingSettings();
+  adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
+  // videoContent should be set to the content video element.
   adsManager = adsManagerLoadedEvent.getAdsManager(
-      videoContent);  // should be set to the content video element
+      videoContent, adsRenderingSettings);
 
   // Add listeners to the required events.
   adsManager.addEventListener(
