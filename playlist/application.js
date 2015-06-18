@@ -56,10 +56,23 @@ var Application = function() {
 
   this.videoPlayer_ = new VideoPlayer();
   this.ads_ = new Ads(this, this.videoPlayer_);
-  this.adTagUrl_ = 'http://pubads.g.doubleclick.net/gampad/ads?iu=/3510761/adRulesSampleTags&sz=640x480&ciu_szs=160x600,300x250,728x90&cust_params=adrule%3Dprerollonly&url=%5Breferrer_url%5D&unviewed_position_start=1&output=xml_vast2&impl=s&env=vp&gdfp_req=1&ad_rule=0&cmsid=481&vid=47570401&vad_type=linear&vpos=preroll&pod=1&min_ad_duration=0&max_ad_duration=30000&ppos=1&lip=true]]%3E';
+  this.adTagUrl_ = 'http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&' +
+      'iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&' +
+      'impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&' +
+      'cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpost&cmsid=496&' +
+      'vid=short_onecue&correlator=';
 
-  this.videoPlayer_.registerVideoEndedCallback(
-      this.bind_(this, this.onContentEnded_));
+  this.videoEndedCallback_ = this.bind_(this, this.onContentEnded_);
+  this.setVideoEndedCallbackEnabled(true);
+
+};
+
+Application.prototype.setVideoEndedCallbackEnabled = function(enable) {
+  if (enable) {
+    this.videoPlayer_.registerVideoEndedCallback(this.videoEndedCallback_);
+  } else {
+    this.videoPlayer_.removeVideoEndedCallback(this.videoEndedCallback_);
+  }
 };
 
 Application.prototype.switchButtonToReplay = function() {
@@ -185,6 +198,7 @@ Application.prototype.updateChrome_ = function() {
 };
 
 Application.prototype.loadAds_ = function() {
+  this.videoPlayer_.removePreloadListener();
   this.ads_.requestAds(this.adTagUrl_);
 };
 

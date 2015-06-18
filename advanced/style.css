@@ -113,10 +113,21 @@ footer {
   margin-right: auto;
 }
 
-#companionDiv {
+#companionDiv, #customClick {
   width: 728px;
   height: 90px;
   margin-top: 20px;
+}
+
+#customClick {
+  background-color: #807F80;
+  display: none;
+  text-align: center;
+}
+
+#customClickTextWrapper {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .urlLink {

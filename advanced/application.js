@@ -49,15 +49,24 @@ var Application = function() {
   this.ads_ = new Ads(this, this.videoPlayer_);
   this.adTagUrl_ = '';
 
-  this.videoPlayer_.registerVideoEndedCallback(
-      this.bind_(this, this.onContentEnded_));
+  this.videoEndedCallback_ = this.bind_(this, this.onContentEnded_);
+  this.setVideoEndedCallbackEnabled(true);
 };
 
-Application.prototype.SAMPLE_AD_TAG_ = 'http://pubads.g.doubleclick.net/gampad/ads?sz=640x360' +
-    '&iu=/6062/iab_vast_samples/skippable&ciu_szs=300x250,728x90&impl=s' +
-    '&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1' +
-    '&url=[referrer_url]&correlator=[timestamp]';
+Application.prototype.SAMPLE_AD_TAG_ = 'http://pubads.g.doubleclick.net/' +
+    'gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&' +
+    'ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&' +
+    'unviewed_position_start=1&' +
+    'cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpost&cmsid=496&' +
+    'vid=short_onecue&correlator=';
 
+Application.prototype.setVideoEndedCallbackEnabled = function(enable) {
+  if (enable) {
+    this.videoPlayer_.registerVideoEndedCallback(this.videoEndedCallback_);
+  } else {
+    this.videoPlayer_.removeVideoEndedCallback(this.videoEndedCallback_);
+  }
+};
 
 Application.prototype.log = function(message) {
   console.log(message);
@@ -174,6 +183,7 @@ Application.prototype.updateChrome_ = function() {
 };
 
 Application.prototype.loadAds_ = function() {
+  this.videoPlayer_.removePreloadListener();
   this.ads_.requestAds(this.adTagUrl_);
 };
 

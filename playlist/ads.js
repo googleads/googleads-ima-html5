@@ -9,9 +9,13 @@
 var Ads = function(application, videoPlayer) {
   this.application_ = application;
   this.videoPlayer_ = videoPlayer;
+  this.customClickDiv_ = document.getElementById('customClick');
   this.linearAdPlaying = false;
   this.adDisplayContainer_ =
-      new google.ima.AdDisplayContainer(this.videoPlayer_.adContainer);
+      new google.ima.AdDisplayContainer(
+          this.videoPlayer_.adContainer,
+          this.videoPlayer_.contentPlayer,
+          this.customClickDiv_);
   this.adsLoader_ = new google.ima.AdsLoader(this.adDisplayContainer_);
   this.adsManager_ = null;
 
@@ -33,6 +37,7 @@ var Ads = function(application, videoPlayer) {
 // This should be called when the user clicks or taps.
 Ads.prototype.initialUserAction = function() {
   this.adDisplayContainer_.initialize();
+  this.videoPlayer_.contentPlayer.load();
 };
 
 Ads.prototype.requestAds = function(adTagUrl) {
@@ -91,12 +96,17 @@ Ads.prototype.destroyAdsManager = function() {
 
 Ads.prototype.onAdsManagerLoaded_ = function(adsManagerLoadedEvent) {
   this.application_.log('Ads loaded.');
+  var adsRenderingSettings = new google.ima.AdsRenderingSettings();
+  adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
   this.adsManager_ = adsManagerLoadedEvent.getAdsManager(
-      this.videoPlayer_.contentPlayer);
+      this.videoPlayer_.contentPlayer, adsRenderingSettings);
   this.processAdsManager_(this.adsManager_);
 };
 
 Ads.prototype.processAdsManager_ = function(adsManager) {
+  if (adsManager.isCustomClickTrackingUsed()) {
+    this.customClickDiv_.style.display = 'table';
+  }
   // Attach the pause/resume events.
   adsManager.addEventListener(
       google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED,
@@ -155,9 +165,11 @@ Ads.prototype.processAdsManager_ = function(adsManager) {
 Ads.prototype.onContentPauseRequested_ = function(adErrorEvent) {
   this.linearAdPlaying = true;
   this.application_.pauseForAd();
+  this.application_.setVideoEndedCallbackEnabled(false);
 };
 
 Ads.prototype.onContentResumeRequested_ = function(adErrorEvent) {
+  this.application_.setVideoEndedCallbackEnabled(true);
   this.linearAdPlaying = false;
   // Without this check the video starts over from the beginning on a
   // post-roll's CONTENT_RESUME_REQUESTED
