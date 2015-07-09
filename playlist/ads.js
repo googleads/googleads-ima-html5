@@ -162,13 +162,13 @@ Ads.prototype.processAdsManager_ = function(adsManager) {
   adsManager.start();
 };
 
-Ads.prototype.onContentPauseRequested_ = function(adErrorEvent) {
+Ads.prototype.onContentPauseRequested_ = function() {
   this.linearAdPlaying = true;
   this.application_.pauseForAd();
   this.application_.setVideoEndedCallbackEnabled(false);
 };
 
-Ads.prototype.onContentResumeRequested_ = function(adErrorEvent) {
+Ads.prototype.onContentResumeRequested_ = function() {
   this.application_.setVideoEndedCallbackEnabled(true);
   this.linearAdPlaying = false;
   // Without this check the video starts over from the beginning on a
@@ -183,6 +183,12 @@ Ads.prototype.onAdEvent_ = function(adEvent) {
 
   if (adEvent.type == google.ima.AdEvent.Type.CLICK) {
     this.application_.adClicked();
+  } else if (adEvent.type == google.ima.AdEvent.Type.LOADED) {
+    var ad = adEvent.getAd();
+    if (!ad.isLinear())
+    {
+      this.onContentResumeRequested_();
+    }
   }
 };
 

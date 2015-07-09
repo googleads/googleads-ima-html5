@@ -47,7 +47,7 @@ function requestAds() {
   adsRequest.adTagUrl =
     'http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&' +
     'iu=%2F6062%2Fiab_vast_samples&ciu_szs=300x250%2C728x90&gdfp_req=1&' +
-    'env=vp&output=xml_vast2&unviewed_position_start=1&url=' +
+    'env=vp&output=vast&unviewed_position_start=1&url=' +
     '[referrer_url]&correlator=[timestamp]&cust_params=iab_vast_samples' +
     '%3Dlinear';
 
@@ -118,6 +118,7 @@ function onAdEvent(adEvent) {
       if (!ad.isLinear()) {
         // Position AdDisplayContainer correctly for overlay.
         // Use ad.width and ad.height.
+        videoContent.play();
       }
       break;
     case google.ima.AdEvent.Type.STARTED:
