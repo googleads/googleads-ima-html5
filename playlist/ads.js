@@ -11,6 +11,7 @@ var Ads = function(application, videoPlayer) {
   this.videoPlayer_ = videoPlayer;
   this.customClickDiv_ = document.getElementById('customClick');
   this.linearAdPlaying = false;
+  google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
   this.adDisplayContainer_ =
       new google.ima.AdDisplayContainer(
           this.videoPlayer_.adContainer,

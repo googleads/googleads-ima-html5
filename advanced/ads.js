@@ -11,6 +11,7 @@ var Ads = function(application, videoPlayer) {
   this.videoPlayer_ = videoPlayer;
   this.customClickDiv_ = document.getElementById('customClick');
   this.contentCompleteCalled_ = false;
+  google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
   // Call setLocale() to localize language text and downloaded swfs
   // google.ima.settings.setLocale('fr');
   this.adDisplayContainer_ =
