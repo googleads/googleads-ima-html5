@@ -49,6 +49,7 @@ var Application = function() {
         false);
   }
 
+  this.initialUserActionHappened_ = false;
   this.playing_ = false;
   this.adsActive_ = false;
   this.adsDone_ = false;
@@ -56,11 +57,11 @@ var Application = function() {
 
   this.videoPlayer_ = new VideoPlayer();
   this.ads_ = new Ads(this, this.videoPlayer_);
-  this.adTagUrl_ = 'http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&' +
-      'iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&' +
-      'impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&' +
-      'cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpost&cmsid=496&' +
-      'vid=short_onecue&correlator=';
+  this.adTagUrl_ = 'https://pubads.g.doubleclick.net/' +
+      'gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&' +
+      'ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&' +
+      'unviewed_position_start=1&' +
+      'cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=';
 
   this.videoEndedCallback_ = this.bind_(this, this.onContentEnded_);
   this.setVideoEndedCallbackEnabled(true);
@@ -112,9 +113,12 @@ Application.prototype.bind_ = function(thisObj, fn) {
 Application.prototype.onClick_ = function() {
   if (!this.adsDone_) {
 
-    // The user clicked/tapped - inform the ads controller that this code
-    // is being run in a user action thread.
-    this.ads_.initialUserAction();
+    if (!this.initialUserActionHappened_) {
+      // The user clicked/tapped - inform the ads controller that this code
+      // is being run in a user action thread.
+      this.ads_.initialUserAction();
+      this.initialUserActionHappened_ = true;
+    }
     // At the same time, initialize the content player as well.
     // When content is loaded, we'll issue the ad request to prevent it
     // from interfering with the initialization. See
@@ -245,6 +249,11 @@ Application.prototype.onPlaylistItemClick_ = function(event) {
   if (!this.ads_.linearAdPlaying) {
     this.ads_.destroyAdsManager();
     this.ads_.contentCompleted();
+    if (!this.initialUserActionHappened_) {
+      this.ads_.initialUserAction();
+      this.initialUserActionHappened_ = true;
+    }
+    this.adsDone_ = true;
     this.videoPlayer_.setContentVideoIndex(event.target.id);
     this.videoPlayer_.preloadContent(this.bind_(this, this.loadAds_));
   }
