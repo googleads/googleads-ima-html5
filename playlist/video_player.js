@@ -84,7 +84,18 @@ VideoPlayer.prototype.setContentVideoIndex = function(index) {
 };
 
 VideoPlayer.prototype.setContentVideoSource_ = function(index) {
-  this.contentIndex = index;
-  this.contentPlayer.src = this.contentUrls[index];
+    this.contentIndex = index;
+
+    if (index == 0) {
+        this.contentPlayer.src = "https://toutvuniver1-vh.akamaihd.net/i/012/mp4/b/2006-07-16_07_15_00_bouleetbill_0103_,500,800,1200,.mp4.csmil/master.m3u8?hdnea=st=1453503925~exp=1456095925~acl=/i/012/mp4/b/2006-07-16_07_15_00_bouleetbill_0103_*~hmac=73e8aea1e8a62fdf4f2fe51386838e588342d6b9e7e86affa9528b5bc40341ae";
+        var src = "https://toutvuniver1-vh.akamaihd.net/i/012/mp4/b/2006-07-16_07_15_00_bouleetbill_0103_,500,800,1200,.mp4.csmil/master.m3u8?hdnea=st=1453503925~exp=1456095925~acl=/i/012/mp4/b/2006-07-16_07_15_00_bouleetbill_0103_*~hmac=73e8aea1e8a62fdf4f2fe51386838e588342d6b9e7e86affa9528b5bc40341ae";
+        var track = "3453.vtt";
+        this.contentPlayer.innerHTML = '<track kind="captions" label="English" srclang="fr" src="3453.vtt">';
+    } else {
+        this.contentPlayer.src = "https://cp125678-f.akamaihd.net/i/diffusion/2016/01/medianet/cbft/2016-01-12_10_00_00_silenceonjoue_1001_,500,800,1200,.mp4.csmil/master.m3u8?hdnea=st=1453501713~exp=1456093713~acl=/i/diffusion/2016/01/medianet/cbft/2016-01-12_10_00_00_silenceonjoue_1001_*~hmac=d7b848e1063cfe3ba824519c5f726b15f2ba51310c48ce4be0eb65a042182405";
+        var track = "3453.vtt";
+        this.contentPlayer.innerHTML = '<track kind="captions" label="English" srclang="fr" src="3453.vtt">';
+
+    }
   this.contentPlayer.load();
 };
