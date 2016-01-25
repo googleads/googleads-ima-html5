@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<script>
+
+    function hideTracks () {
+        var video = document.getElementsByTagName("video")[0];
+
+        for (i = 0; i < video.textTracks.length; i++) {
+            video.textTracks[i].mode = "hidden";
+        }
+    };
+
+    function playVideo() {
+        var video = document.getElementsByTagName("video")[0];
+        hideTracks();
+        var track = document.createElement("track");
+        track.kind = "captions";
+        track.label = "English";
+        track.srclang = "en";
+        track.src = "3453.vtt";
+        video.appendChild(track);
+        track.addEventListener("load", function () {
+            this.mode = "showing";
+            video.textTracks[0].mode = "showing"; // thanks Firefox
+        });
+    }
+</script>
+<body>
+
+    <video crossorigin="withcredentials" width="320" height="240" id="testvideo" controls="controls" src="https://toutvuniver1-vh.akamaihd.net/i/012/mp4/b/2006-07-16_07_15_00_bouleetbill_0103_,500,800,1200,.mp4.csmil/master.m3u8?hdnea=st=1453503925~exp=1456095925~acl=/i/012/mp4/b/2006-07-16_07_15_00_bouleetbill_0103_*~hmac=73e8aea1e8a62fdf4f2fe51386838e588342d6b9e7e86affa9528b5bc40341ae">
+
+
+
+        Your browser does not support the video tag.
+    </video>
+
+    <div style="background-color: green; width: 150px; height: 150px" onclick="playVideo()"></div>
+
+    <div id="console">
+        Version 88.
+    </div>
+
+
+    <script>
+
+
+        //debugger;
+
+        window.console_ = document.getElementById('console');
+
+        window.log = function (message) {
+            window.console_.innerHTML = window.console_.innerHTML + '<br/>' + message;
+        };
+
+        var mytracks = document.getElementsByTagName("video")[0].textTracks[0];
+        mytracks.addEventListener("cuechange", function () {
+            var myCues = this.activeCues;             // track element is "this" 
+
+            if (myCues && myCues[0] && myCues[0].text) {
+                //console.log(myCues[0].text);   // write the text
+
+
+
+                log("text: " + myCues[0].text, "CUE");
+                log("align: " + myCues[0].align, "CUE");
+
+                log("line: " + myCues[0].line, "CUE");
+                log("position: " + myCues[0].position, "CUE");
+                log("size: " + myCues[0].size, "CUE");
+                log("vertical: " + myCues[0].vertical, "CUE");
+                log("snapToLines: " + myCues[0].snapToLines, "CUE");
+
+
+                //_self.log(myCues[0].track.mode, "CUE");
+
+                            
+                log("===", "CUE");
+
+
+                //myCues[0].line = 0;
+
+            }
+        });
+    </script>
+
+</body>
+</html>
