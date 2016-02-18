@@ -13,23 +13,13 @@ var videoContent;
 function init() {
   videoContent = document.getElementById('contentElement');
   playButton = document.getElementById('playButton');
-  playButton.addEventListener('click', requestAds);
+  playButton.addEventListener('click', playAds);
+  setUpIMA();
 }
 
-function createAdDisplayContainer() {
-  // We assume the adContainer is the DOM id of the element that will house
-  // the ads.
-  adDisplayContainer =
-      new google.ima.AdDisplayContainer(
-          document.getElementById('adContainer'), videoContent);
-}
-
-function requestAds() {
+function setUpIMA() {
   // Create the ad display container.
   createAdDisplayContainer();
-  // Initialize the container. Must be done via a user action on mobile devices.
-  adDisplayContainer.initialize();
-  videoContent.load();
   // Create ads loader.
   adsLoader = new google.ima.AdsLoader(adDisplayContainer);
   // Listen and respond to ads loaded and error events.
@@ -58,6 +48,31 @@ function requestAds() {
   adsRequest.nonLinearAdSlotHeight = 150;
 
   adsLoader.requestAds(adsRequest);
+}
+
+
+function createAdDisplayContainer() {
+  // We assume the adContainer is the DOM id of the element that will house
+  // the ads.
+  adDisplayContainer = new google.ima.AdDisplayContainer(
+      document.getElementById('adContainer'), videoContent);
+}
+
+function playAds() {
+  // Initialize the container. Must be done via a user action on mobile devices.
+  videoContent.load();
+  adDisplayContainer.initialize();
+
+  try {
+    // Initialize the ads manager. Ad rules playlist will start at this time.
+    adsManager.init(640, 360, google.ima.ViewMode.NORMAL);
+    // Call play to start showing the ad. Single video and overlay ads will
+    // start at this time; the call will be ignored for ad rules.
+    adsManager.start();
+  } catch (adError) {
+    // An error may be thrown if there was a problem with the VAST response.
+    videoContent.play();
+  }
 }
 
 function onAdsManagerLoaded(adsManagerLoadedEvent) {
@@ -92,17 +107,6 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
   adsManager.addEventListener(
       google.ima.AdEvent.Type.COMPLETE,
       onAdEvent);
-
-  try {
-    // Initialize the ads manager. Ad rules playlist will start at this time.
-    adsManager.init(640, 360, google.ima.ViewMode.NORMAL);
-    // Call play to start showing the ad. Single video and overlay ads will
-    // start at this time; the call will be ignored for ad rules.
-    adsManager.start();
-  } catch (adError) {
-    // An error may be thrown if there was a problem with the VAST response.
-    videoContent.play();
-  }
 }
 
 function onAdEvent(adEvent) {
