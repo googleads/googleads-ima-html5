@@ -244,6 +244,13 @@ Application.prototype.onContentEnded_ = function() {
 };
 
 Application.prototype.onPlaylistItemClick_ = function(event) {
+
+  // Give play authorization to the ad video tag
+  if(navigator.userAgent.match(/(iPod|iPhone|iPad)/) || 
+    navigator.userAgent.toLowerCase().indexOf('android') > -1) {   
+      this.ads_.adDisplayContainer_.initialize();
+  }
+  
   // Terms of Service says we can't kill an ad prematurely, so we will only
   // switch videos if there isn't an ad playing.
   if (!this.ads_.linearAdPlaying) {
