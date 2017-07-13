@@ -82,10 +82,10 @@ Ads.prototype.onAdsManagerLoaded_ = function(adsManagerLoadedEvent) {
   adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
   this.adsManager_ = adsManagerLoadedEvent.getAdsManager(
       this.videoPlayer_.contentPlayer, adsRenderingSettings);
-  this.processAdsManager_(this.adsManager_);
+  this.startAdsManager_(this.adsManager_);
 };
 
-Ads.prototype.processAdsManager_ = function(adsManager) {
+Ads.prototype.startAdsManager_ = function(adsManager) {
   if (adsManager.isCustomClickTrackingUsed()) {
     this.customClickDiv_.style.display = 'table';
   }
