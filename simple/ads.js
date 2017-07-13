@@ -32,6 +32,11 @@ function setUpIMA() {
       onAdError,
       false);
 
+  // An event listener to tell the SDK that our content video
+  // is completed so the SDK can play any post-roll ads.
+  var contentEndedListener = function() {adsLoader.contentComplete();};
+  videoContent.onended = contentEndedListener;
+
   // Request video ads.
   var adsRequest = new google.ima.AdsRequest();
   adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
