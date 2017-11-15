@@ -7,8 +7,14 @@
   </head>
 
   <body onload=initDesktopAutoplayExample()>
-    <p style="font-size: 16px; font-family: sans-serif;">This player will autoplay if the browser allows it to. If it is not
-       allowed to autoplay, it will fall back to click-to-play.</p>
+    <p style="font-size: 16px; font-family: sans-serif;">
+    This player does the following:
+      <ol>
+        <li>Attempt to autoplay unmuted. If that works, do so. If not, move on to step 2.</li>
+        <li>Attempt to autoplay muted. If that works, do so. If not, move on to step 3.</li>
+        <li>Fall back to click-to-play.</li>
+      </ol>
+    </p>
     <div id="mainContainer">
       <div id="content">
         <video id="contentElement">

@@ -15,10 +15,11 @@
 var adsManager;
 var adsLoader;
 var adDisplayContainer;
-var intervalTimer;
 var playButton;
 var videoContent;
 var adsInitialized;
+var autoplayAllowed;
+var autoplayRequiresMuted;
 
 function initDesktopAutoplayExample() {
   videoContent = document.getElementById('contentElement');
@@ -31,7 +32,50 @@ function initDesktopAutoplayExample() {
     videoContent.load();
     playAds();
   });
+  // Check if autoplay is supported.
+  checkAutoplaySupport();
   setUpIMA();
+}
+
+function checkAutoplaySupport() {
+  // Test for autoplay support with our content player.
+  videoContent.play().then(onUnmutedAutoplaySuccess, onUnmutedAutoplayFail);
+}
+
+function onUnmutedAutoplaySuccess() {
+  // If we make it here, unmuted autoplay works.
+  videoContent.pause();
+  autoplayAllowed = true;
+  autoplayRequiresMuted = false;
+  autoplayChecksResolved();
+}
+
+function onUnmutedAutoplayFail() {
+  // Unmuted autoplay failed. Now try muted autoplay.
+  checkMutedAutoplaySupport();
+}
+
+function checkMutedAutoplaySupport() {
+  videoContent.volume = 0;
+  videoContent.muted = true;
+  videoContent.play().then(onMutedAutoplaySuccess, onMutedAutoplayFail);
+}
+
+function onMutedAutoplaySuccess() {
+  // If we make it here, muted autoplay works but unmuted autoplay does not.
+  videoContent.pause();
+  autoplayAllowed = true;
+  autoplayRequiresMuted = true;
+  autoplayChecksResolved();
+}
+
+function onMuteedAutoplayFail() {
+  // Both muted and unmuted autoplay failed. Fall back to click to play.
+  videoContent.volume = 1;
+  videoContent.muted = false;
+  autoplayAllowed = false;
+  autoplayRequiresMuted = false;
+  autoplayChecksResolved();
 }
 
 function setUpIMA() {
@@ -53,7 +97,9 @@ function setUpIMA() {
   // is completed so the SDK can play any post-roll ads.
   var contentEndedListener = function() {adsLoader.contentComplete();};
   videoContent.onended = contentEndedListener;
+}
 
+function autoplayChecksResolved() {
   // Request video ads.
   var adsRequest = new google.ima.AdsRequest();
   adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
@@ -69,9 +115,10 @@ function setUpIMA() {
   adsRequest.nonLinearAdSlotWidth = 640;
   adsRequest.nonLinearAdSlotHeight = 150;
 
+  adsRequest.setAdWillAutoPlay(autoplayAllowed);
+  adsRequest.setAdWillPlayMuted(autoplayRequiresMuted);
   adsLoader.requestAds(adsRequest);
 }
-
 
 function createAdDisplayContainer() {
   // We assume the adContainer is the DOM id of the element that will house
@@ -130,19 +177,12 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
       google.ima.AdEvent.Type.COMPLETE,
       onAdEvent);
 
-  autoplayAdsIfPossible();
-}
 
-function autoplayAdsIfPossible() {
-  // Test for autoplay support with our content player.
-  videoContent.play().then(() => {
-      // If we make it here, autoplay works. Pause content and play ads.
-      videoContent.pause();
-      playAds();
-    }, () => {
-      // If we make it here, autoplay doesn't work. Show the play button.
-      playButton.style.display = 'block';
-    });
+  if (autoplayAllowed) {
+    playAds();
+  } else {
+    playButton.style.display = 'block';
+  }
 }
 
 function onAdEvent(adEvent) {
@@ -154,31 +194,7 @@ function onAdEvent(adEvent) {
       // This is the first event sent for an ad - it is possible to
       // determine whether the ad is a video ad or an overlay.
       if (!ad.isLinear()) {
-        // Position AdDisplayContainer correctly for overlay.
-        // Use ad.width and ad.height.
         videoContent.play();
-      }
-      break;
-    case google.ima.AdEvent.Type.STARTED:
-      // This event indicates the ad has started - the video player
-      // can adjust the UI, for example display a pause button and
-      // remaining time.
-      if (ad.isLinear()) {
-        // For a linear ad, a timer can be started to poll for
-        // the remaining time.
-        intervalTimer = setInterval(
-            function() {
-              var remainingTime = adsManager.getRemainingTime();
-            },
-            300); // every 300ms
-      }
-      break;
-    case google.ima.AdEvent.Type.COMPLETE:
-      // This event indicates the ad has finished - the video player
-      // can perform appropriate UI actions, such as removing the timer for
-      // remaining time detection.
-      if (ad.isLinear()) {
-        clearInterval(intervalTimer);
       }
       break;
   }
@@ -192,16 +208,9 @@ function onAdError(adErrorEvent) {
 
 function onContentPauseRequested() {
   videoContent.pause();
-  // This function is where you should setup UI for showing ads (e.g.
-  // display ad timer countdown, disable seeking etc.)
-  // setupUIForAds();
 }
 
 function onContentResumeRequested() {
   videoContent.play();
-  // This function is where you should ensure that your UI is ready
-  // to play content. It is the responsibility of the Publisher to
-  // implement this function when necessary.
-  // setupUIForContent();
 
 }
