@@ -69,7 +69,7 @@ function onMutedAutoplaySuccess() {
   autoplayChecksResolved();
 }
 
-function onMuteedAutoplayFail() {
+function onMutedAutoplayFail() {
   // Both muted and unmuted autoplay failed. Fall back to click to play.
   videoContent.volume = 1;
   videoContent.muted = false;
