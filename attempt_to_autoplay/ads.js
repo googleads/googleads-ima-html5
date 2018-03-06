@@ -32,17 +32,20 @@ function initDesktopAutoplayExample() {
     videoContent.load();
     playAds();
   });
+  setUpIMA();
   // Check if autoplay is supported.
   checkAutoplaySupport();
-  setUpIMA();
 }
 
 function checkAutoplaySupport() {
   // Test for autoplay support with our content player.
-  videoContent.play().then(onUnmutedAutoplaySuccess, onUnmutedAutoplayFail);
+  var playPromise = videoContent.play();
+  if (playPromise !== undefined) {
+    playPromise.then(onAutoplayWithSoundSuccess).catch(onAutoplayWithSoundFail);
+  }
 }
 
-function onUnmutedAutoplaySuccess() {
+function onAutoplayWithSoundSuccess() {
   // If we make it here, unmuted autoplay works.
   videoContent.pause();
   autoplayAllowed = true;
@@ -50,7 +53,7 @@ function onUnmutedAutoplaySuccess() {
   autoplayChecksResolved();
 }
 
-function onUnmutedAutoplayFail() {
+function onAutoplayWithSoundFail() {
   // Unmuted autoplay failed. Now try muted autoplay.
   checkMutedAutoplaySupport();
 }
@@ -58,7 +61,10 @@ function onUnmutedAutoplayFail() {
 function checkMutedAutoplaySupport() {
   videoContent.volume = 0;
   videoContent.muted = true;
-  videoContent.play().then(onMutedAutoplaySuccess, onMutedAutoplayFail);
+  var playPromise = videoContent.play();
+  if (playPromise !== undefined) {
+    playPromise.then(onMutedAutoplaySuccess).catch(onMutedAutoplayFail);
+  }
 }
 
 function onMutedAutoplaySuccess() {
