@@ -101,8 +101,14 @@ function setUpIMA() {
 
   // An event listener to tell the SDK that our content video
   // is completed so the SDK can play any post-roll ads.
-  var contentEndedListener = function() {adsLoader.contentComplete();};
   videoContent.onended = contentEndedListener;
+}
+
+function contentEndedListener() {
+  videoContent.onended = null;
+  if (adsLoader) {
+    adsLoader.contentComplete();
+  }
 }
 
 function autoplayChecksResolved() {
@@ -214,9 +220,10 @@ function onAdError(adErrorEvent) {
 
 function onContentPauseRequested() {
   videoContent.pause();
+  videoContent.onended = null;
 }
 
 function onContentResumeRequested() {
   videoContent.play();
-
+  videoContent.onended = contentEndedListener;
 }
