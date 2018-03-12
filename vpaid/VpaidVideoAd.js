@@ -138,6 +138,7 @@ VpaidVideoPlayer.prototype.initAd = function(
       this.stopAd.bind(this),
       false);
   this.callEvent_('AdLoaded');
+  debugger;
 };
 
 
