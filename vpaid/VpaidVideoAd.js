@@ -57,6 +57,7 @@ var VpaidVideoPlayer = function() {
    * @private
    */
   this.quartileEvents_ = [
+    {event: 'AdImpression', value: 0},
     {event: 'AdVideoStart', value: 0},
     {event: 'AdVideoFirstQuartile', value: 25},
     {event: 'AdVideoMidpoint', value: 50},
