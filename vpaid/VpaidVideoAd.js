@@ -57,6 +57,7 @@ var VpaidVideoPlayer = function() {
    * @private
    */
   this.quartileEvents_ = [
+    {event: 'AdImpression', value: 0},
     {event: 'AdVideoStart', value: 0},
     {event: 'AdVideoFirstQuartile', value: 25},
     {event: 'AdVideoMidpoint', value: 50},
@@ -137,8 +138,23 @@ VpaidVideoPlayer.prototype.initAd = function(
       'ended',
       this.stopAd.bind(this),
       false);
+  this.slot_.addEventListener(
+      'click',
+      this.clickAd_.bind(this),
+      false);
   this.callEvent_('AdLoaded');
 };
+
+/**
+ * Called when the ad is clicked.
+ * @private
+ */
+VpaidVideoPlayer.prototype.clickAd_ = function() {
+  if ('AdClickThru' in this.eventsCallbacks_) {
+    this.eventsCallbacks_['AdClickThru']('','0', true);
+  }
+};
+
 
 
 /**
