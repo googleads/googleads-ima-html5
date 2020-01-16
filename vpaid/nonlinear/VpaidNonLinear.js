@@ -74,7 +74,6 @@ const VpaidNonLinear = function() {
   /**
    * Parameters passed in from the AdParameters section of the VAST.
    * Used for video URL and MIME type.
-   *
    * @private {!Object}
    */
   this.parameters_ = {};
@@ -94,7 +93,6 @@ VpaidNonLinear.prototype.handshakeVersion = function(version) {
 /**
  * Initializes all attributes in the ad. The ad will not start until startAd is
  * called.
- *
  * @param {number} width The ad width.
  * @param {number} height The ad height.
  * @param {string} viewMode The ad view mode.
@@ -294,7 +292,6 @@ VpaidNonLinear.prototype.stopAd = function() {
 
 /**
  * Called when the video player changes the width/height of the container.
- *
  * @param {number} width The new width.
  * @param {number} height A new height.
  * @param {string} viewMode A new view mode.
@@ -361,7 +358,6 @@ VpaidNonLinear.prototype.skipAd = function() {
 
 /**
  * Registers a callback for an event.
- *
  * @param {Function} callback The callback function.
  * @param {string} eventName The callback type.
  * @param {Object} context The context for the callback.
@@ -377,7 +373,6 @@ VpaidNonLinear.prototype.subscribe = function(
 
 /**
  * Removes a callback based on the eventName.
- *
  * @param {string} eventName The callback type.
  */
 VpaidNonLinear.prototype.unsubscribe = function(eventName) {
@@ -388,7 +383,6 @@ VpaidNonLinear.prototype.unsubscribe = function(eventName) {
 
 /**
  * Returns whether the ad is linear.
- *
  * @return {boolean} True if the ad is a linear, false for non linear.
  */
 VpaidNonLinear.prototype.getAdLinear = function() {
@@ -397,7 +391,6 @@ VpaidNonLinear.prototype.getAdLinear = function() {
 
 /**
  * Returns ad width.
- *
  * @return {number} The ad width.
  */
 VpaidNonLinear.prototype.getAdWidth = function() {
@@ -407,7 +400,6 @@ VpaidNonLinear.prototype.getAdWidth = function() {
 
 /**
  * Returns ad height.
- *
  * @return {number} The ad height.
  */
 VpaidNonLinear.prototype.getAdHeight = function() {
@@ -417,7 +409,6 @@ VpaidNonLinear.prototype.getAdHeight = function() {
 
 /**
  * Returns true if the ad is expanded.
- *
  * @return {boolean}
  */
 VpaidNonLinear.prototype.getAdExpanded = function() {
@@ -428,7 +419,6 @@ VpaidNonLinear.prototype.getAdExpanded = function() {
 
 /**
  * Returns the skippable state of the ad.
- *
  * @return {boolean}
  */
 VpaidNonLinear.prototype.getAdSkippableState = function() {
@@ -439,7 +429,6 @@ VpaidNonLinear.prototype.getAdSkippableState = function() {
 
 /**
  * Returns the remaining ad time, in seconds.
- *
  * @return {number} The time remaining in the ad.
  */
 VpaidNonLinear.prototype.getAdRemainingTime = function() {
@@ -453,7 +442,6 @@ VpaidNonLinear.prototype.getAdRemainingTime = function() {
 
 /**
  * Returns the duration of the ad, in seconds.
- *
  * @return {number} The duration of the ad.
  */
 VpaidNonLinear.prototype.getAdDuration = function() {
@@ -463,7 +451,6 @@ VpaidNonLinear.prototype.getAdDuration = function() {
 
 /**
  * Returns the ad volume.
- *
  * @return {number} The volume of the ad.
  */
 VpaidNonLinear.prototype.getAdVolume = function() {
@@ -474,7 +461,6 @@ VpaidNonLinear.prototype.getAdVolume = function() {
 
 /**
  * Sets the ad volume.
- *
  * @param {number} value The volume in percentage.
  */
 VpaidNonLinear.prototype.setAdVolume = function(value) {
@@ -486,7 +472,6 @@ VpaidNonLinear.prototype.setAdVolume = function(value) {
 
 /**
  * Returns a list of companion ads for the ad.
- *
  * @return {string} List of companions in VAST XML.
  */
 VpaidNonLinear.prototype.getAdCompanions = function() {
@@ -496,7 +481,6 @@ VpaidNonLinear.prototype.getAdCompanions = function() {
 
 /**
  * Returns a list of icons.
- *
  * @return {string} A list of icons.
  */
 VpaidNonLinear.prototype.getAdIcons = function() {
@@ -506,7 +490,6 @@ VpaidNonLinear.prototype.getAdIcons = function() {
 
 /**
  * Logs events and messages.
- *
  * @param {string} message
  */
 VpaidNonLinear.prototype.log = function(message) {
@@ -516,7 +499,6 @@ VpaidNonLinear.prototype.log = function(message) {
 
 /**
  * Calls an event if there is a callback.
- *
  * @param {string} eventType
  * @private
  */
@@ -529,7 +511,6 @@ VpaidNonLinear.prototype.callEvent_ = function(eventType) {
 
 /**
  * Main function called by wrapper to get the VPAID ad.
- *
  * @return {Object} The VPAID compliant ad.
  */
 var getVPAIDAd = function() {

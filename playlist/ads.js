@@ -206,7 +206,6 @@ Ads.prototype.onAdError_ = function(adErrorEvent) {
  * the video player fires the ended event. Here ads are done, so if
  * the content video is done, we start the next video. If ads are done but the
  * content video is still playing, we just let it finish.
- *
  * @private
  */
 Ads.prototype.onAllAdsCompleted_ = function() {

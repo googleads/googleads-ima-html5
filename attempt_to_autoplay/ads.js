@@ -163,6 +163,9 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
   // videoContent should be set to the content video element.
   adsManager = adsManagerLoadedEvent.getAdsManager(
       videoContent, adsRenderingSettings);
+  // Mute the ad if doing muted autoplay.
+  const adVolume = (autoplayAllowed && autoplayRequiresMuted) ? 0 : 1;
+  adsManager.setVolume(adVolume);
 
   // Add listeners to the required events.
   adsManager.addEventListener(
@@ -216,6 +219,8 @@ function onAdError(adErrorEvent) {
   // Handle the error logging.
   console.log(adErrorEvent.getError());
   adsManager.destroy();
+  // Fall back to playing content.
+  videoContent.play();
 }
 
 function onContentPauseRequested() {

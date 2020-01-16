@@ -12,8 +12,8 @@ var VideoPlayer = function() {
   this.videoPlayerContainer_ = document.getElementById('videoplayer');
 
   this.contentIndex = 0;
-  this.contentUrls = ['http://rmcdn.2mdn.net/Demo/vast_inspector/android.mp4',
-                      'http://rmcdn.2mdn.net/Demo/html5/output.mp4'];
+  this.contentUrls = ['https://storage.googleapis.com/gvabox/media/samples/stock.mp4',
+                      'https://storage.googleapis.com/gvabox/media/samples/android.mp4'];
 
   this.width = 640;
   this.height = 360;

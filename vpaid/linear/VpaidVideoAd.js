@@ -1,7 +1,6 @@
 /**
  * @fileoverview A sample VPAID ad useful for testing a VPAID JS enabled player.
  * This ad will just play a video.
- *
  */
 
 /**
@@ -74,7 +73,6 @@ var VpaidVideoPlayer = function() {
   /**
    * Parameters passed in from the AdParameters section of the VAST.
    * Used for video URL and MIME type.
-   *
    * @type {!object}
    * @private
    */
@@ -95,7 +93,6 @@ VpaidVideoPlayer.prototype.handshakeVersion = function(version) {
 /**
  * Initializes all attributes in the ad. The ad will not start until startAd is\
  * called.
- *
  * @param {number} width The ad width.
  * @param {number} height The ad height.
  * @param {string} viewMode The ad view mode.
@@ -254,7 +251,6 @@ VpaidVideoPlayer.prototype.stopAd = function() {
 
 /**
  * Called when the video player changes the width/height of the container.
- *
  * @param {number} width The new width.
  * @param {number} height A new height.
  * @param {string} viewMode A new view mode.
@@ -322,7 +318,6 @@ VpaidVideoPlayer.prototype.skipAd = function() {
 
 /**
  * Registers a callback for an event.
- *
  * @param {Function} aCallback The callback function.
  * @param {string} eventName The callback type.
  * @param {Object} aContext The context for the callback.
@@ -339,7 +334,6 @@ VpaidVideoPlayer.prototype.subscribe = function(
 
 /**
  * Removes a callback based on the eventName.
- *
  * @param {string} eventName The callback type.
  */
 VpaidVideoPlayer.prototype.unsubscribe = function(eventName) {
@@ -350,7 +344,6 @@ VpaidVideoPlayer.prototype.unsubscribe = function(eventName) {
 
 /**
  * Returns whether the ad is linear.
- *
  * @return {boolean} True if the ad is a linear, false for non linear.
  */
 VpaidVideoPlayer.prototype.getAdLinear = function() {
@@ -359,7 +352,6 @@ VpaidVideoPlayer.prototype.getAdLinear = function() {
 
 /**
  * Returns ad width.
- *
  * @return {number} The ad width.
  */
 VpaidVideoPlayer.prototype.getAdWidth = function() {
@@ -369,7 +361,6 @@ VpaidVideoPlayer.prototype.getAdWidth = function() {
 
 /**
  * Returns ad height.
- *
  * @return {number} The ad height.
  */
 VpaidVideoPlayer.prototype.getAdHeight = function() {
@@ -379,7 +370,6 @@ VpaidVideoPlayer.prototype.getAdHeight = function() {
 
 /**
  * Returns true if the ad is expanded.
- *
  * @return {boolean}
  */
 VpaidVideoPlayer.prototype.getAdExpanded = function() {
@@ -390,7 +380,6 @@ VpaidVideoPlayer.prototype.getAdExpanded = function() {
 
 /**
  * Returns the skippable state of the ad.
- *
  * @return {boolean}
  */
 VpaidVideoPlayer.prototype.getAdSkippableState = function() {
@@ -401,7 +390,6 @@ VpaidVideoPlayer.prototype.getAdSkippableState = function() {
 
 /**
  * Returns the remaining ad time, in seconds.
- *
  * @return {number} The time remaining in the ad.
  */
 VpaidVideoPlayer.prototype.getAdRemainingTime = function() {
@@ -411,7 +399,6 @@ VpaidVideoPlayer.prototype.getAdRemainingTime = function() {
 
 /**
  * Returns the duration of the ad, in seconds.
- *
  * @return {number} The duration of the ad.
  */
 VpaidVideoPlayer.prototype.getAdDuration = function() {
@@ -421,7 +408,6 @@ VpaidVideoPlayer.prototype.getAdDuration = function() {
 
 /**
  * Returns the ad volume.
- *
  * @return {number} The volume of the ad.
  */
 VpaidVideoPlayer.prototype.getAdVolume = function() {
@@ -432,7 +418,6 @@ VpaidVideoPlayer.prototype.getAdVolume = function() {
 
 /**
  * Sets the ad volume.
- *
  * @param {number} value The volume in percentage.
  */
 VpaidVideoPlayer.prototype.setAdVolume = function(value) {
@@ -444,7 +429,6 @@ VpaidVideoPlayer.prototype.setAdVolume = function(value) {
 
 /**
  * Returns a list of companion ads for the ad.
- *
  * @return {string} List of companions in VAST XML.
  */
 VpaidVideoPlayer.prototype.getAdCompanions = function() {
@@ -454,7 +438,6 @@ VpaidVideoPlayer.prototype.getAdCompanions = function() {
 
 /**
  * Returns a list of icons.
- *
  * @return {string} A list of icons.
  */
 VpaidVideoPlayer.prototype.getAdIcons = function() {
@@ -464,7 +447,6 @@ VpaidVideoPlayer.prototype.getAdIcons = function() {
 
 /**
  * Logs events and messages.
- *
  * @param {string} message
  */
 VpaidVideoPlayer.prototype.log = function(message) {
@@ -474,7 +456,6 @@ VpaidVideoPlayer.prototype.log = function(message) {
 
 /**
  * Calls an event if there is a callback.
- *
  * @param {string} eventType
  * @private
  */
@@ -487,7 +468,6 @@ VpaidVideoPlayer.prototype.callEvent_ = function(eventType) {
 
 /**
  * Main function called by wrapper to get the VPAID ad.
- *
  * @return {Object} The VPAID compliant ad.
  */
 var getVPAIDAd = function() {
