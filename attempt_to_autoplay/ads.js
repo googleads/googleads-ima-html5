@@ -88,6 +88,7 @@ function setUpIMA() {
   // Create the ad display container.
   createAdDisplayContainer();
   // Create ads loader.
+  window.performance.mark('requestAdsLoader');
   adsLoader = new google.ima.AdsLoader(adDisplayContainer);
   // Listen and respond to ads loaded and error events.
   adsLoader.addEventListener(
@@ -114,11 +115,17 @@ function contentEndedListener() {
 function autoplayChecksResolved() {
   // Request video ads.
   var adsRequest = new google.ima.AdsRequest();
-  adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
-      'sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&' +
-      'impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&' +
-      'cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=';
+  // adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
+  //     'sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&' +
+  //     'impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&' +
+  //     'cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=';
 
+  adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
+      'sz=640x480|480x70&iu=/3379/conde.wired/player&ciu_szs=300x60&' +
+      'gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&' +
+      'cust_params=excl_cat%3Dplayer_embed%26height%3D450%26muted%3D0%26right_rail%3D0%26' +
+      'sensitive%3D0%26width%3D800&correlator=undefined&' +
+      'description_url=https%3A%2F%2Fthescene.com%2Fwatch%2Fwired%2Fabsurd-creatures-the-fennec-fox-and-its-giant-ears-are-too-cute-to-possibly-exist&vid=56fc498794c05f1a0600000e&cmsid=1495&ppid=';
   // Specify the linear and nonlinear slot sizes. This helps the SDK to
   // select the correct creative if multiple are returned.
   adsRequest.linearAdSlotWidth = 640;
@@ -157,6 +164,7 @@ function playAds() {
 }
 
 function onAdsManagerLoaded(adsManagerLoadedEvent) {
+  window.performance.mark('adsManagerLoaded');
   // Get the ads manager.
   var adsRenderingSettings = new google.ima.AdsRenderingSettings();
   adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
@@ -212,6 +220,22 @@ function onAdEvent(adEvent) {
         videoContent.play();
       }
       break;
+    case google.ima.AdEvent.Type.STARTED:
+      window.performance.mark('adStarted');
+      window.performance.measure('loaderToManager', 'requestAdsLoader', 'adsManagerLoaded');
+      window.performance.measure('adsManagerLoaded to adStarted', 'adsManagerLoaded', 'adStarted');
+
+      const [loaderToManager] = window.performance.getEntriesByName('loaderToManager');
+      const [managerLoadToStart] = window.performance.getEntriesByName('adsManagerLoaded to adStarted');
+      const [adStarted] = window.performance.getEntriesByName('adStarted');
+
+      const timings = `
+        Request Ads Loader: ${loaderToManager.startTime}<br/>
+        ~~~${loaderToManager.duration}~~~<br/>
+        Request Ads Manager: ${managerLoadToStart.startTime}<br/>
+        ~~~${managerLoadToStart.duration}~~~<br/>
+        Ad Started: ${adStarted.startTime}`;
+      document.getElementById('timing').innerHTML = timings;
   }
 }
 
