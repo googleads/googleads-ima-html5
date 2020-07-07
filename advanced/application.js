@@ -8,6 +8,7 @@
  */
 var Application = function() {
   this.adTagBox_ = document.getElementById('tagText');
+  this.adTagBox_.value = this.SAMPLE_AD_TAG_
   this.sampleAdTag_ = document.getElementById('sampleAdTag');
   this.sampleAdTag_.addEventListener(
       'click',
