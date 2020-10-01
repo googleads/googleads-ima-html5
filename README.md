@@ -13,6 +13,7 @@ This project hosts samples for the [HTML5 IMA SDK](https://developers.google.com
   * Your favorite text editor
   * An HTML5 compliant browser
   * A webserver on which to host the sample
+  * And some besic Knowledge of html syntax
 
 ### Downloads
 Check out the [releases section](https://github.com/googleads/googleads-ima-html5/releases) for downloadable zips of the source.
