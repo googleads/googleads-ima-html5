@@ -3,6 +3,8 @@
 // Note that this example is provided "as is", WITHOUT WARRANTY
 // of any kind either expressed or implied.
 
+goog.module('google3.personalization.zipit.frontend.javascript.external-javascript.ads.interactivemedia.sdk.clientside.samples.googleads-ima-html5.advanced.ads');
+
 /**
  * Shows how to use the IMA SDK to request and display ads.
  */
@@ -14,24 +16,17 @@ var Ads = function(application, videoPlayer) {
   google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
   // Call setLocale() to localize language text and downloaded swfs
   // google.ima.settings.setLocale('fr');
-  this.adDisplayContainer_ =
-      new google.ima.AdDisplayContainer(
-          this.videoPlayer_.adContainer,
-          this.videoPlayer_.contentPlayer,
-          this.customClickDiv_);
+  this.adDisplayContainer_ = new google.ima.AdDisplayContainer(
+      this.videoPlayer_.adContainer, this.videoPlayer_.contentPlayer,
+      this.customClickDiv_);
   this.adsLoader_ = new google.ima.AdsLoader(this.adDisplayContainer_);
   this.adsManager_ = null;
 
   this.adsLoader_.addEventListener(
       google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
-      this.onAdsManagerLoaded_,
-      false,
-      this);
+      this.onAdsManagerLoaded_, false, this);
   this.adsLoader_.addEventListener(
-      google.ima.AdErrorEvent.Type.AD_ERROR,
-      this.onAdError_,
-      false,
-      this);
+      google.ima.AdErrorEvent.Type.AD_ERROR, this.onAdError_, false, this);
 };
 
 // On iOS and Android devices, video playback must begin in a user action.
@@ -92,35 +87,22 @@ Ads.prototype.startAdsManager_ = function(adsManager) {
   // Attach the pause/resume events.
   adsManager.addEventListener(
       google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED,
-      this.onContentPauseRequested_,
-      false,
-      this);
+      this.onContentPauseRequested_, false, this);
   adsManager.addEventListener(
       google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,
-      this.onContentResumeRequested_,
-      false,
-      this);
+      this.onContentResumeRequested_, false, this);
   // Handle errors.
   adsManager.addEventListener(
-      google.ima.AdErrorEvent.Type.AD_ERROR,
-      this.onAdError_,
-      false,
-      this);
-  var events = [google.ima.AdEvent.Type.ALL_ADS_COMPLETED,
-                google.ima.AdEvent.Type.CLICK,
-                google.ima.AdEvent.Type.COMPLETE,
-                google.ima.AdEvent.Type.FIRST_QUARTILE,
-                google.ima.AdEvent.Type.LOADED,
-                google.ima.AdEvent.Type.MIDPOINT,
-                google.ima.AdEvent.Type.PAUSED,
-                google.ima.AdEvent.Type.STARTED,
-                google.ima.AdEvent.Type.THIRD_QUARTILE];
+      google.ima.AdErrorEvent.Type.AD_ERROR, this.onAdError_, false, this);
+  var events = [
+    google.ima.AdEvent.Type.ALL_ADS_COMPLETED, google.ima.AdEvent.Type.CLICK,
+    google.ima.AdEvent.Type.COMPLETE, google.ima.AdEvent.Type.FIRST_QUARTILE,
+    google.ima.AdEvent.Type.LOADED, google.ima.AdEvent.Type.MIDPOINT,
+    google.ima.AdEvent.Type.PAUSED, google.ima.AdEvent.Type.STARTED,
+    google.ima.AdEvent.Type.THIRD_QUARTILE
+  ];
   for (var index in events) {
-    adsManager.addEventListener(
-        events[index],
-        this.onAdEvent_,
-        false,
-        this);
+    adsManager.addEventListener(events[index], this.onAdEvent_, false, this);
   }
 
   var initWidth, initHeight;
@@ -131,10 +113,7 @@ Ads.prototype.startAdsManager_ = function(adsManager) {
     initWidth = this.videoPlayer_.width;
     initHeight = this.videoPlayer_.height;
   }
-  adsManager.init(
-    initWidth,
-    initHeight,
-    google.ima.ViewMode.NORMAL);
+  adsManager.init(initWidth, initHeight, google.ima.ViewMode.NORMAL);
 
   adsManager.start();
 };
@@ -160,8 +139,7 @@ Ads.prototype.onAdEvent_ = function(adEvent) {
     this.application_.adClicked();
   } else if (adEvent.type == google.ima.AdEvent.Type.LOADED) {
     var ad = adEvent.getAd();
-    if (!ad.isLinear())
-    {
+    if (!ad.isLinear()) {
       this.onContentResumeRequested_();
     }
   }

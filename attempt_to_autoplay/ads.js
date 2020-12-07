@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+goog.module('google3.personalization.zipit.frontend.javascript.external-javascript.ads.interactivemedia.sdk.clientside.samples.googleads-ima-html5.attempt_to_autoplay.ads');
+
 var adsManager;
 var adsLoader;
 var adDisplayContainer;
@@ -92,12 +94,9 @@ function setUpIMA() {
   // Listen and respond to ads loaded and error events.
   adsLoader.addEventListener(
       google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
-      onAdsManagerLoaded,
-      false);
+      onAdsManagerLoaded, false);
   adsLoader.addEventListener(
-      google.ima.AdErrorEvent.Type.AD_ERROR,
-      onAdError,
-      false);
+      google.ima.AdErrorEvent.Type.AD_ERROR, onAdError, false);
 
   // An event listener to tell the SDK that our content video
   // is completed so the SDK can play any post-roll ads.
@@ -161,37 +160,26 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
   var adsRenderingSettings = new google.ima.AdsRenderingSettings();
   adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
   // videoContent should be set to the content video element.
-  adsManager = adsManagerLoadedEvent.getAdsManager(
-      videoContent, adsRenderingSettings);
+  adsManager =
+      adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
   // Mute the ad if doing muted autoplay.
   const adVolume = (autoplayAllowed && autoplayRequiresMuted) ? 0 : 1;
   adsManager.setVolume(adVolume);
 
   // Add listeners to the required events.
+  adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
   adsManager.addEventListener(
-      google.ima.AdErrorEvent.Type.AD_ERROR,
-      onAdError);
-  adsManager.addEventListener(
-      google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED,
-      onContentPauseRequested);
+      google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, onContentPauseRequested);
   adsManager.addEventListener(
       google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,
       onContentResumeRequested);
   adsManager.addEventListener(
-      google.ima.AdEvent.Type.ALL_ADS_COMPLETED,
-      onAdEvent);
+      google.ima.AdEvent.Type.ALL_ADS_COMPLETED, onAdEvent);
 
   // Listen to any additional events, if necessary.
-  adsManager.addEventListener(
-      google.ima.AdEvent.Type.LOADED,
-      onAdEvent);
-  adsManager.addEventListener(
-      google.ima.AdEvent.Type.STARTED,
-      onAdEvent);
-  adsManager.addEventListener(
-      google.ima.AdEvent.Type.COMPLETE,
-      onAdEvent);
-
+  adsManager.addEventListener(google.ima.AdEvent.Type.LOADED, onAdEvent);
+  adsManager.addEventListener(google.ima.AdEvent.Type.STARTED, onAdEvent);
+  adsManager.addEventListener(google.ima.AdEvent.Type.COMPLETE, onAdEvent);
 
   if (autoplayAllowed) {
     playAds();

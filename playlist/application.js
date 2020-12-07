@@ -3,6 +3,8 @@
 // Note that this example is provided "as is", WITHOUT WARRANTY
 // of any kind either expressed or implied.
 
+goog.module('google3.personalization.zipit.frontend.javascript.external-javascript.ads.interactivemedia.sdk.clientside.samples.googleads-ima-html5.playlist.application');
+
 /**
  * Handles user interaction and creates the player and ads controllers.
  */
@@ -10,42 +12,31 @@ var Application = function() {
   this.console_ = document.getElementById('console');
   this.playButton_ = document.getElementById('playpause');
   this.playButton_.addEventListener(
-      'click',
-      this.bind_(this, this.onClick_),
-      false);
+      'click', this.bind_(this, this.onClick_), false);
   this.replayButton_ = document.getElementById('replay');
   this.replayButton_.addEventListener(
-      'click',
-      this.bind_(this, this.onReplay_),
-      false);
+      'click', this.bind_(this, this.onReplay_), false);
   this.fullscreenButton_ = document.getElementById('fullscreen');
   this.fullscreenButton_.addEventListener(
-      'click',
-      this.bind_(this, this.onFullscreenClick_),
-      false);
+      'click', this.bind_(this, this.onFullscreenClick_), false);
 
   var playlistDiv = document.getElementById('playlistDiv');
   var playlistItems = playlistDiv.childNodes;
   for (var i = 0; i < playlistItems.length; i++) {
     if (playlistItems[i].tagName == 'DIV') {
       playlistItems[i].addEventListener(
-          'click',
-          this.bind_(this, this.onPlaylistItemClick_),
-          false);
+          'click', this.bind_(this, this.onPlaylistItemClick_), false);
     }
   }
 
   this.fullscreenWidth = null;
   this.fullscreenHeight = null;
 
-  var fullScreenEvents = [
-      'fullscreenchange',
-      'mozfullscreenchange',
-      'webkitfullscreenchange'];
+  var fullScreenEvents =
+      ['fullscreenchange', 'mozfullscreenchange', 'webkitfullscreenchange'];
   for (key in fullScreenEvents) {
     document.addEventListener(
-        fullScreenEvents[key],
-        this.bind_(this, this.onFullscreenChange_),
+        fullScreenEvents[key], this.bind_(this, this.onFullscreenChange_),
         false);
   }
 
@@ -65,7 +56,6 @@ var Application = function() {
 
   this.videoEndedCallback_ = this.bind_(this, this.onContentEnded_);
   this.setVideoEndedCallbackEnabled(true);
-
 };
 
 Application.prototype.setVideoEndedCallbackEnabled = function(enable) {
@@ -112,7 +102,6 @@ Application.prototype.bind_ = function(thisObj, fn) {
 
 Application.prototype.onClick_ = function() {
   if (!this.adsDone_) {
-
     if (!this.initialUserActionHappened_) {
       // The user clicked/tapped - inform the ads controller that this code
       // is being run in a user action thread.
@@ -162,10 +151,8 @@ Application.prototype.switchButtonToPlay_ = function() {
 Application.prototype.onFullscreenClick_ = function() {
   if (this.fullscreen) {
     // The video is currently in fullscreen mode
-    var cancelFullscreen = document.exitFullscreen ||
-        document.exitFullScreen ||
-        document.webkitCancelFullScreen ||
-        document.mozCancelFullScreen;
+    var cancelFullscreen = document.exitFullscreen || document.exitFullScreen ||
+        document.webkitCancelFullScreen || document.mozCancelFullScreen;
     if (cancelFullscreen) {
       cancelFullscreen.call(document);
     } else {
@@ -210,16 +197,10 @@ Application.prototype.onFullscreenChange_ = function() {
   if (this.fullscreen) {
     // The user just exited fullscreen
     // Resize the ad container
-    this.ads_.resize(
-        this.videoPlayer_.width,
-        this.videoPlayer_.height);
+    this.ads_.resize(this.videoPlayer_.width, this.videoPlayer_.height);
     // Return the video to its original size and position
     this.videoPlayer_.resize(
-        'relative',
-        '',
-        '',
-        this.videoPlayer_.width,
-        this.videoPlayer_.height);
+        'relative', '', '', this.videoPlayer_.width, this.videoPlayer_.height);
     this.fullscreen = false;
   } else {
     // The fullscreen button was just clicked
@@ -234,9 +215,7 @@ Application.prototype.onFullscreenChange_ = function() {
 };
 
 Application.prototype.makeAdsFullscreen_ = function() {
-  this.ads_.resize(
-      this.fullscreenWidth,
-      this.fullscreenHeight);
+  this.ads_.resize(this.fullscreenWidth, this.fullscreenHeight);
 };
 
 Application.prototype.onContentEnded_ = function() {
