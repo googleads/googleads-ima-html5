@@ -3,8 +3,6 @@
 // Note that this example is provided "as is", WITHOUT WARRANTY
 // of any kind either expressed or implied.
 
-goog.module('google3.personalization.zipit.frontend.javascript.external-javascript.ads.interactivemedia.sdk.clientside.samples.googleads-ima-html5.advanced.ads');
-
 /**
  * Shows how to use the IMA SDK to request and display ads.
  */

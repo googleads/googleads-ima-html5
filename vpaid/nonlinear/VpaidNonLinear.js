@@ -4,8 +4,6 @@
  * mode.
  */
 
-goog.module('google3.personalization.zipit.frontend.javascript.external-javascript.ads.interactivemedia.sdk.clientside.samples.googleads-ima-html5.vpaid.nonlinear.VpaidNonLinear');
-
 /** @unrestricted */
 const VpaidNonLinear = class {
   constructor() {

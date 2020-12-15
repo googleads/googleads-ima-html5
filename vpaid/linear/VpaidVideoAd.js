@@ -3,8 +3,6 @@
  * This ad will just play a video.
  */
 
-goog.module('google3.personalization.zipit.frontend.javascript.external-javascript.ads.interactivemedia.sdk.clientside.samples.googleads-ima-html5.vpaid.linear.VpaidVideoAd');
-
 /**
  * @constructor
  */

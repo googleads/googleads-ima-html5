@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-goog.module('google3.personalization.zipit.frontend.javascript.external-javascript.ads.interactivemedia.sdk.clientside.samples.googleads-ima-html5.attempt_to_autoplay.ads');
-
 var adsManager;
 var adsLoader;
 var adDisplayContainer;
