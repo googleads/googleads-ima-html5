@@ -92,9 +92,18 @@ function setUpIMA() {
   // Listen and respond to ads loaded and error events.
   adsLoader.addEventListener(
       google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
+<<<<<<< HEAD
       onAdsManagerLoaded, false);
   adsLoader.addEventListener(
       google.ima.AdErrorEvent.Type.AD_ERROR, onAdError, false);
+=======
+      onAdsManagerLoaded,
+      false);
+  adsLoader.addEventListener(
+      google.ima.AdErrorEvent.Type.AD_ERROR,
+      onAdError,
+      false);
+>>>>>>> gh-pages
 
   // An event listener to tell the SDK that our content video
   // is completed so the SDK can play any post-roll ads.
@@ -158,6 +167,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
   var adsRenderingSettings = new google.ima.AdsRenderingSettings();
   adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
   // videoContent should be set to the content video element.
+<<<<<<< HEAD
   adsManager =
       adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
   // Mute the ad if doing muted autoplay.
@@ -168,16 +178,45 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
   adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
   adsManager.addEventListener(
       google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, onContentPauseRequested);
+=======
+  adsManager = adsManagerLoadedEvent.getAdsManager(
+      videoContent, adsRenderingSettings);
+
+  // Add listeners to the required events.
+  adsManager.addEventListener(
+      google.ima.AdErrorEvent.Type.AD_ERROR,
+      onAdError);
+  adsManager.addEventListener(
+      google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED,
+      onContentPauseRequested);
+>>>>>>> gh-pages
   adsManager.addEventListener(
       google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,
       onContentResumeRequested);
   adsManager.addEventListener(
+<<<<<<< HEAD
       google.ima.AdEvent.Type.ALL_ADS_COMPLETED, onAdEvent);
 
   // Listen to any additional events, if necessary.
   adsManager.addEventListener(google.ima.AdEvent.Type.LOADED, onAdEvent);
   adsManager.addEventListener(google.ima.AdEvent.Type.STARTED, onAdEvent);
   adsManager.addEventListener(google.ima.AdEvent.Type.COMPLETE, onAdEvent);
+=======
+      google.ima.AdEvent.Type.ALL_ADS_COMPLETED,
+      onAdEvent);
+
+  // Listen to any additional events, if necessary.
+  adsManager.addEventListener(
+      google.ima.AdEvent.Type.LOADED,
+      onAdEvent);
+  adsManager.addEventListener(
+      google.ima.AdEvent.Type.STARTED,
+      onAdEvent);
+  adsManager.addEventListener(
+      google.ima.AdEvent.Type.COMPLETE,
+      onAdEvent);
+
+>>>>>>> gh-pages
 
   if (autoplayAllowed) {
     playAds();
@@ -205,8 +244,11 @@ function onAdError(adErrorEvent) {
   // Handle the error logging.
   console.log(adErrorEvent.getError());
   adsManager.destroy();
+<<<<<<< HEAD
   // Fall back to playing content.
   videoContent.play();
+=======
+>>>>>>> gh-pages
 }
 
 function onContentPauseRequested() {

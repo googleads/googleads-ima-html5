@@ -14,17 +14,36 @@ var Ads = function(application, videoPlayer) {
   google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
   // Call setLocale() to localize language text and downloaded swfs
   // google.ima.settings.setLocale('fr');
+<<<<<<< HEAD
   this.adDisplayContainer_ = new google.ima.AdDisplayContainer(
       this.videoPlayer_.adContainer, this.videoPlayer_.contentPlayer,
       this.customClickDiv_);
+=======
+  this.adDisplayContainer_ =
+      new google.ima.AdDisplayContainer(
+          this.videoPlayer_.adContainer,
+          this.videoPlayer_.contentPlayer,
+          this.customClickDiv_);
+>>>>>>> gh-pages
   this.adsLoader_ = new google.ima.AdsLoader(this.adDisplayContainer_);
   this.adsManager_ = null;
 
   this.adsLoader_.addEventListener(
       google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
+<<<<<<< HEAD
       this.onAdsManagerLoaded_, false, this);
   this.adsLoader_.addEventListener(
       google.ima.AdErrorEvent.Type.AD_ERROR, this.onAdError_, false, this);
+=======
+      this.onAdsManagerLoaded_,
+      false,
+      this);
+  this.adsLoader_.addEventListener(
+      google.ima.AdErrorEvent.Type.AD_ERROR,
+      this.onAdError_,
+      false,
+      this);
+>>>>>>> gh-pages
 };
 
 // On iOS and Android devices, video playback must begin in a user action.
@@ -85,6 +104,7 @@ Ads.prototype.startAdsManager_ = function(adsManager) {
   // Attach the pause/resume events.
   adsManager.addEventListener(
       google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED,
+<<<<<<< HEAD
       this.onContentPauseRequested_, false, this);
   adsManager.addEventListener(
       google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,
@@ -101,6 +121,37 @@ Ads.prototype.startAdsManager_ = function(adsManager) {
   ];
   for (var index in events) {
     adsManager.addEventListener(events[index], this.onAdEvent_, false, this);
+=======
+      this.onContentPauseRequested_,
+      false,
+      this);
+  adsManager.addEventListener(
+      google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,
+      this.onContentResumeRequested_,
+      false,
+      this);
+  // Handle errors.
+  adsManager.addEventListener(
+      google.ima.AdErrorEvent.Type.AD_ERROR,
+      this.onAdError_,
+      false,
+      this);
+  var events = [google.ima.AdEvent.Type.ALL_ADS_COMPLETED,
+                google.ima.AdEvent.Type.CLICK,
+                google.ima.AdEvent.Type.COMPLETE,
+                google.ima.AdEvent.Type.FIRST_QUARTILE,
+                google.ima.AdEvent.Type.LOADED,
+                google.ima.AdEvent.Type.MIDPOINT,
+                google.ima.AdEvent.Type.PAUSED,
+                google.ima.AdEvent.Type.STARTED,
+                google.ima.AdEvent.Type.THIRD_QUARTILE];
+  for (var index in events) {
+    adsManager.addEventListener(
+        events[index],
+        this.onAdEvent_,
+        false,
+        this);
+>>>>>>> gh-pages
   }
 
   var initWidth, initHeight;
@@ -111,7 +162,14 @@ Ads.prototype.startAdsManager_ = function(adsManager) {
     initWidth = this.videoPlayer_.width;
     initHeight = this.videoPlayer_.height;
   }
+<<<<<<< HEAD
   adsManager.init(initWidth, initHeight, google.ima.ViewMode.NORMAL);
+=======
+  adsManager.init(
+    initWidth,
+    initHeight,
+    google.ima.ViewMode.NORMAL);
+>>>>>>> gh-pages
 
   adsManager.start();
 };
@@ -137,7 +195,12 @@ Ads.prototype.onAdEvent_ = function(adEvent) {
     this.application_.adClicked();
   } else if (adEvent.type == google.ima.AdEvent.Type.LOADED) {
     var ad = adEvent.getAd();
+<<<<<<< HEAD
     if (!ad.isLinear()) {
+=======
+    if (!ad.isLinear())
+    {
+>>>>>>> gh-pages
       this.onContentResumeRequested_();
     }
   }

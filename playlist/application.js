@@ -10,6 +10,7 @@ var Application = function() {
   this.console_ = document.getElementById('console');
   this.playButton_ = document.getElementById('playpause');
   this.playButton_.addEventListener(
+<<<<<<< HEAD
       'click', this.bind_(this, this.onClick_), false);
   this.replayButton_ = document.getElementById('replay');
   this.replayButton_.addEventListener(
@@ -17,24 +18,56 @@ var Application = function() {
   this.fullscreenButton_ = document.getElementById('fullscreen');
   this.fullscreenButton_.addEventListener(
       'click', this.bind_(this, this.onFullscreenClick_), false);
+=======
+      'click',
+      this.bind_(this, this.onClick_),
+      false);
+  this.replayButton_ = document.getElementById('replay');
+  this.replayButton_.addEventListener(
+      'click',
+      this.bind_(this, this.onReplay_),
+      false);
+  this.fullscreenButton_ = document.getElementById('fullscreen');
+  this.fullscreenButton_.addEventListener(
+      'click',
+      this.bind_(this, this.onFullscreenClick_),
+      false);
+>>>>>>> gh-pages
 
   var playlistDiv = document.getElementById('playlistDiv');
   var playlistItems = playlistDiv.childNodes;
   for (var i = 0; i < playlistItems.length; i++) {
     if (playlistItems[i].tagName == 'DIV') {
       playlistItems[i].addEventListener(
+<<<<<<< HEAD
           'click', this.bind_(this, this.onPlaylistItemClick_), false);
+=======
+          'click',
+          this.bind_(this, this.onPlaylistItemClick_),
+          false);
+>>>>>>> gh-pages
     }
   }
 
   this.fullscreenWidth = null;
   this.fullscreenHeight = null;
 
+<<<<<<< HEAD
   var fullScreenEvents =
       ['fullscreenchange', 'mozfullscreenchange', 'webkitfullscreenchange'];
   for (key in fullScreenEvents) {
     document.addEventListener(
         fullScreenEvents[key], this.bind_(this, this.onFullscreenChange_),
+=======
+  var fullScreenEvents = [
+      'fullscreenchange',
+      'mozfullscreenchange',
+      'webkitfullscreenchange'];
+  for (key in fullScreenEvents) {
+    document.addEventListener(
+        fullScreenEvents[key],
+        this.bind_(this, this.onFullscreenChange_),
+>>>>>>> gh-pages
         false);
   }
 
@@ -54,6 +87,10 @@ var Application = function() {
 
   this.videoEndedCallback_ = this.bind_(this, this.onContentEnded_);
   this.setVideoEndedCallbackEnabled(true);
+<<<<<<< HEAD
+=======
+
+>>>>>>> gh-pages
 };
 
 Application.prototype.setVideoEndedCallbackEnabled = function(enable) {
@@ -100,6 +137,10 @@ Application.prototype.bind_ = function(thisObj, fn) {
 
 Application.prototype.onClick_ = function() {
   if (!this.adsDone_) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> gh-pages
     if (!this.initialUserActionHappened_) {
       // The user clicked/tapped - inform the ads controller that this code
       // is being run in a user action thread.
@@ -149,8 +190,15 @@ Application.prototype.switchButtonToPlay_ = function() {
 Application.prototype.onFullscreenClick_ = function() {
   if (this.fullscreen) {
     // The video is currently in fullscreen mode
+<<<<<<< HEAD
     var cancelFullscreen = document.exitFullscreen || document.exitFullScreen ||
         document.webkitCancelFullScreen || document.mozCancelFullScreen;
+=======
+    var cancelFullscreen = document.exitFullscreen ||
+        document.exitFullScreen ||
+        document.webkitCancelFullScreen ||
+        document.mozCancelFullScreen;
+>>>>>>> gh-pages
     if (cancelFullscreen) {
       cancelFullscreen.call(document);
     } else {
@@ -195,10 +243,23 @@ Application.prototype.onFullscreenChange_ = function() {
   if (this.fullscreen) {
     // The user just exited fullscreen
     // Resize the ad container
+<<<<<<< HEAD
     this.ads_.resize(this.videoPlayer_.width, this.videoPlayer_.height);
     // Return the video to its original size and position
     this.videoPlayer_.resize(
         'relative', '', '', this.videoPlayer_.width, this.videoPlayer_.height);
+=======
+    this.ads_.resize(
+        this.videoPlayer_.width,
+        this.videoPlayer_.height);
+    // Return the video to its original size and position
+    this.videoPlayer_.resize(
+        'relative',
+        '',
+        '',
+        this.videoPlayer_.width,
+        this.videoPlayer_.height);
+>>>>>>> gh-pages
     this.fullscreen = false;
   } else {
     // The fullscreen button was just clicked
@@ -213,7 +274,13 @@ Application.prototype.onFullscreenChange_ = function() {
 };
 
 Application.prototype.makeAdsFullscreen_ = function() {
+<<<<<<< HEAD
   this.ads_.resize(this.fullscreenWidth, this.fullscreenHeight);
+=======
+  this.ads_.resize(
+      this.fullscreenWidth,
+      this.fullscreenHeight);
+>>>>>>> gh-pages
 };
 
 Application.prototype.onContentEnded_ = function() {
