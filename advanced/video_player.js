@@ -22,9 +22,7 @@ VideoPlayer.prototype.preloadContent = function(contentLoadedAction) {
   if (this.isMobilePlatform()) {
     this.preloadListener_ = contentLoadedAction;
     this.contentPlayer.addEventListener(
-        'loadedmetadata',
-        contentLoadedAction,
-        false);
+        'loadedmetadata', contentLoadedAction, false);
     this.contentPlayer.load();
   } else {
     contentLoadedAction();
@@ -34,9 +32,7 @@ VideoPlayer.prototype.preloadContent = function(contentLoadedAction) {
 VideoPlayer.prototype.removePreloadListener = function() {
   if (this.preloadListener_) {
     this.contentPlayer.removeEventListener(
-        'loadedmetadata',
-        this.preloadListener_,
-        false);
+        'loadedmetadata', this.preloadListener_, false);
     this.preloadListener_ = null;
   }
 };
@@ -55,8 +51,7 @@ VideoPlayer.prototype.isMobilePlatform = function() {
        navigator.userAgent.toLowerCase().indexOf('android') > -1);
 };
 
-VideoPlayer.prototype.resize = function(
-    position, top, left, width, height) {
+VideoPlayer.prototype.resize = function(position, top, left, width, height) {
   this.videoPlayerContainer_.style.position = position;
   this.videoPlayerContainer_.style.top = top + 'px';
   this.videoPlayerContainer_.style.left = left + 'px';

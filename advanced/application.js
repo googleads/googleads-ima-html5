@@ -10,35 +10,25 @@ var Application = function() {
   this.adTagBox_ = document.getElementById('tagText');
   this.sampleAdTag_ = document.getElementById('sampleAdTag');
   this.sampleAdTag_.addEventListener(
-      'click',
-      this.bind_(this, this.onSampleAdTagClick_),
-      false);
+      'click', this.bind_(this, this.onSampleAdTagClick_), false);
   this.console_ = document.getElementById('console');
   this.playButton_ = document.getElementById('playpause');
   this.playButton_.addEventListener(
-      'click',
-      this.bind_(this, this.onClick_),
-      false);
+      'click', this.bind_(this, this.onClick_), false);
   this.fullscreenButton_ = document.getElementById('fullscreen');
   this.fullscreenButton_.addEventListener(
-      'click',
-      this.bind_(this, this.onFullscreenClick_),
-      false);
+      'click', this.bind_(this, this.onFullscreenClick_), false);
 
   this.fullscreenWidth = null;
   this.fullscreenHeight = null;
 
-  var fullScreenEvents = [
-      'fullscreenchange',
-      'mozfullscreenchange',
-      'webkitfullscreenchange'];
+  var fullScreenEvents =
+      ['fullscreenchange', 'mozfullscreenchange', 'webkitfullscreenchange'];
   for (key in fullScreenEvents) {
     document.addEventListener(
-        fullScreenEvents[key],
-        this.bind_(this, this.onFullscreenChange_),
+        fullScreenEvents[key], this.bind_(this, this.onFullscreenChange_),
         false);
   }
-
 
   this.playing_ = false;
   this.adsActive_ = false;
@@ -142,10 +132,8 @@ Application.prototype.onClick_ = function() {
 Application.prototype.onFullscreenClick_ = function() {
   if (this.fullscreen) {
     // The video is currently in fullscreen mode
-    var cancelFullscreen = document.exitFullscreen ||
-        document.exitFullScreen ||
-        document.webkitCancelFullScreen ||
-        document.mozCancelFullScreen;
+    var cancelFullscreen = document.exitFullscreen || document.exitFullScreen ||
+        document.webkitCancelFullScreen || document.mozCancelFullScreen;
     if (cancelFullscreen) {
       cancelFullscreen.call(document);
     } else {
@@ -190,16 +178,10 @@ Application.prototype.onFullscreenChange_ = function() {
   if (this.fullscreen) {
     // The user just exited fullscreen
     // Resize the ad container
-    this.ads_.resize(
-        this.videoPlayer_.width,
-        this.videoPlayer_.height);
+    this.ads_.resize(this.videoPlayer_.width, this.videoPlayer_.height);
     // Return the video to its original size and position
     this.videoPlayer_.resize(
-        'relative',
-        '',
-        '',
-        this.videoPlayer_.width,
-        this.videoPlayer_.height);
+        'relative', '', '', this.videoPlayer_.width, this.videoPlayer_.height);
     this.fullscreen = false;
   } else {
     // The fullscreen button was just clicked
@@ -214,9 +196,7 @@ Application.prototype.onFullscreenChange_ = function() {
 };
 
 Application.prototype.makeAdsFullscreen_ = function() {
-  this.ads_.resize(
-      this.fullscreenWidth,
-      this.fullscreenHeight);
+  this.ads_.resize(this.fullscreenWidth, this.fullscreenHeight);
 };
 
 Application.prototype.onContentEnded_ = function() {

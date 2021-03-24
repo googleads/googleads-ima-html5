@@ -1,7 +1,6 @@
 /**
  * @fileoverview A sample VPAID ad useful for testing a VPAID JS enabled player.
  * This ad will just play a video.
- *
  */
 
 /**
@@ -37,18 +36,18 @@ var VpaidVideoPlayer = function() {
    * @private
    */
   this.attributes_ = {
-    'companions' : '',
-    'desiredBitrate' : 256,
-    'duration' : 10,
-    'expanded' : false,
-    'height' : 0,
-    'icons' : '',
-    'linear' : true,
-    'remainingTime' : 10,
-    'skippableState' : false,
-    'viewMode' : 'normal',
-    'width' : 0,
-    'volume' : 1.0
+    'companions': '',
+    'desiredBitrate': 256,
+    'duration': 10,
+    'expanded': false,
+    'height': 0,
+    'icons': '',
+    'linear': true,
+    'remainingTime': 10,
+    'skippableState': false,
+    'viewMode': 'normal',
+    'width': 0,
+    'volume': 1.0
   };
 
   /**
@@ -57,8 +56,7 @@ var VpaidVideoPlayer = function() {
    * @private
    */
   this.quartileEvents_ = [
-    {event: 'AdImpression', value: 0},
-    {event: 'AdVideoStart', value: 0},
+    {event: 'AdImpression', value: 0}, {event: 'AdVideoStart', value: 0},
     {event: 'AdVideoFirstQuartile', value: 25},
     {event: 'AdVideoMidpoint', value: 50},
     {event: 'AdVideoThirdQuartile', value: 75},
@@ -74,13 +72,11 @@ var VpaidVideoPlayer = function() {
   /**
    * Parameters passed in from the AdParameters section of the VAST.
    * Used for video URL and MIME type.
-   *
    * @type {!object}
    * @private
    */
   this.parameters_ = {};
 };
-
 
 /**
  * Returns the supported VPAID verion.
@@ -91,11 +87,9 @@ VpaidVideoPlayer.prototype.handshakeVersion = function(version) {
   return ('2.0');
 };
 
-
 /**
  * Initializes all attributes in the ad. The ad will not start until startAd is\
  * called.
- *
  * @param {number} width The ad width.
  * @param {number} height The ad height.
  * @param {string} viewMode The ad view mode.
@@ -105,12 +99,7 @@ VpaidVideoPlayer.prototype.handshakeVersion = function(version) {
  *     creative like the slot and video slot.
  */
 VpaidVideoPlayer.prototype.initAd = function(
-    width,
-    height,
-    viewMode,
-    desiredBitrate,
-    creativeData,
-    environmentVars) {
+    width, height, viewMode, desiredBitrate, creativeData, environmentVars) {
   this.attributes_['width'] = width;
   this.attributes_['height'] = height;
   this.attributes_['viewMode'] = viewMode;
@@ -123,25 +112,15 @@ VpaidVideoPlayer.prototype.initAd = function(
   // Parse the incoming ad parameters.
   this.parameters_ = JSON.parse(creativeData['AdParameters']);
 
-  this.log('initAd ' + width + 'x' + height +
-      ' ' + viewMode + ' ' + desiredBitrate);
+  this.log(
+      'initAd ' + width + 'x' + height + ' ' + viewMode + ' ' + desiredBitrate);
   this.updateVideoSlot_();
   this.videoSlot_.addEventListener(
-      'timeupdate',
-      this.timeUpdateHandler_.bind(this),
-      false);
+      'timeupdate', this.timeUpdateHandler_.bind(this), false);
   this.videoSlot_.addEventListener(
-      'loadedmetadata',
-      this.loadedMetadata_.bind(this),
-      false);
-  this.videoSlot_.addEventListener(
-      'ended',
-      this.stopAd.bind(this),
-      false);
-  this.slot_.addEventListener(
-      'click',
-      this.clickAd_.bind(this),
-      false);
+      'loadedmetadata', this.loadedMetadata_.bind(this), false);
+  this.videoSlot_.addEventListener('ended', this.stopAd.bind(this), false);
+  this.slot_.addEventListener('click', this.clickAd_.bind(this), false);
   this.callEvent_('AdLoaded');
 };
 
@@ -151,11 +130,9 @@ VpaidVideoPlayer.prototype.initAd = function(
  */
 VpaidVideoPlayer.prototype.clickAd_ = function() {
   if ('AdClickThru' in this.eventsCallbacks_) {
-    this.eventsCallbacks_['AdClickThru']('','0', true);
+    this.eventsCallbacks_['AdClickThru']('', '0', true);
   }
 };
-
-
 
 /**
  * Called by the video element when video metadata is loaded.
@@ -186,10 +163,9 @@ VpaidVideoPlayer.prototype.timeUpdateHandler_ = function() {
   }
   if (this.videoSlot_.duration > 0) {
     this.attributes_['remainingTime'] =
-      this.videoSlot_.duration - this.videoSlot_.currentTime;
+        this.videoSlot_.duration - this.videoSlot_.currentTime;
   }
 };
-
 
 /**
  * Creates or updates the video slot and fills it with a supported video.
@@ -218,7 +194,6 @@ VpaidVideoPlayer.prototype.updateVideoSlot_ = function() {
   }
 };
 
-
 /**
  * Helper function to update the size of the video player.
  * @private
@@ -227,7 +202,6 @@ VpaidVideoPlayer.prototype.updateVideoPlayerSize_ = function() {
   this.videoSlot_.setAttribute('width', this.attributes_['width']);
   this.videoSlot_.setAttribute('height', this.attributes_['height']);
 };
-
 
 /**
  * Called by the wrapper to start the ad.
@@ -238,7 +212,6 @@ VpaidVideoPlayer.prototype.startAd = function() {
 
   this.callEvent_('AdStarted');
 };
-
 
 /**
  * Called by the wrapper to stop the ad.
@@ -251,10 +224,8 @@ VpaidVideoPlayer.prototype.stopAd = function() {
   setTimeout(callback, 75, ['AdStopped']);
 };
 
-
 /**
  * Called when the video player changes the width/height of the container.
- *
  * @param {number} width The new width.
  * @param {number} height A new height.
  * @param {string} viewMode A new view mode.
@@ -268,7 +239,6 @@ VpaidVideoPlayer.prototype.resizeAd = function(width, height, viewMode) {
   this.callEvent_('AdSizeChange');
 };
 
-
 /**
  * Pauses the ad.
  */
@@ -277,7 +247,6 @@ VpaidVideoPlayer.prototype.pauseAd = function() {
   this.videoSlot_.pause();
   this.callEvent_('AdPaused');
 };
-
 
 /**
  * Resumes the ad.
@@ -288,7 +257,6 @@ VpaidVideoPlayer.prototype.resumeAd = function() {
   this.callEvent_('AdPlaying');
 };
 
-
 /**
  * Expands the ad.
  */
@@ -298,7 +266,6 @@ VpaidVideoPlayer.prototype.expandAd = function() {
   this.callEvent_('AdExpanded');
 };
 
-
 /**
  * Collapses the ad.
  */
@@ -306,7 +273,6 @@ VpaidVideoPlayer.prototype.collapseAd = function() {
   this.log('collapseAd');
   this.attributes_['expanded'] = false;
 };
-
 
 /**
  * Skips the ad.
@@ -319,27 +285,21 @@ VpaidVideoPlayer.prototype.skipAd = function() {
   }
 };
 
-
 /**
  * Registers a callback for an event.
- *
  * @param {Function} aCallback The callback function.
  * @param {string} eventName The callback type.
  * @param {Object} aContext The context for the callback.
  */
 VpaidVideoPlayer.prototype.subscribe = function(
-    aCallback,
-    eventName,
-    aContext) {
+    aCallback, eventName, aContext) {
   this.log('Subscribe ' + eventName);
   var callBack = aCallback.bind(aContext);
   this.eventsCallbacks_[eventName] = callBack;
 };
 
-
 /**
  * Removes a callback based on the eventName.
- *
  * @param {string} eventName The callback type.
  */
 VpaidVideoPlayer.prototype.unsubscribe = function(eventName) {
@@ -347,10 +307,8 @@ VpaidVideoPlayer.prototype.unsubscribe = function(eventName) {
   this.eventsCallbacks_[eventName] = null;
 };
 
-
 /**
  * Returns whether the ad is linear.
- *
  * @return {boolean} True if the ad is a linear, false for non linear.
  */
 VpaidVideoPlayer.prototype.getAdLinear = function() {
@@ -359,27 +317,22 @@ VpaidVideoPlayer.prototype.getAdLinear = function() {
 
 /**
  * Returns ad width.
- *
  * @return {number} The ad width.
  */
 VpaidVideoPlayer.prototype.getAdWidth = function() {
   return this.attributes_['width'];
 };
 
-
 /**
  * Returns ad height.
- *
  * @return {number} The ad height.
  */
 VpaidVideoPlayer.prototype.getAdHeight = function() {
   return this.attributes_['height'];
 };
 
-
 /**
  * Returns true if the ad is expanded.
- *
  * @return {boolean}
  */
 VpaidVideoPlayer.prototype.getAdExpanded = function() {
@@ -387,10 +340,8 @@ VpaidVideoPlayer.prototype.getAdExpanded = function() {
   return this.attributes_['expanded'];
 };
 
-
 /**
  * Returns the skippable state of the ad.
- *
  * @return {boolean}
  */
 VpaidVideoPlayer.prototype.getAdSkippableState = function() {
@@ -398,30 +349,24 @@ VpaidVideoPlayer.prototype.getAdSkippableState = function() {
   return this.attributes_['skippableState'];
 };
 
-
 /**
  * Returns the remaining ad time, in seconds.
- *
  * @return {number} The time remaining in the ad.
  */
 VpaidVideoPlayer.prototype.getAdRemainingTime = function() {
   return this.attributes_['remainingTime'];
 };
 
-
 /**
  * Returns the duration of the ad, in seconds.
- *
  * @return {number} The duration of the ad.
  */
 VpaidVideoPlayer.prototype.getAdDuration = function() {
   return this.attributes_['duration'];
 };
 
-
 /**
  * Returns the ad volume.
- *
  * @return {number} The volume of the ad.
  */
 VpaidVideoPlayer.prototype.getAdVolume = function() {
@@ -429,10 +374,8 @@ VpaidVideoPlayer.prototype.getAdVolume = function() {
   return this.attributes_['volume'];
 };
 
-
 /**
  * Sets the ad volume.
- *
  * @param {number} value The volume in percentage.
  */
 VpaidVideoPlayer.prototype.setAdVolume = function(value) {
@@ -441,40 +384,32 @@ VpaidVideoPlayer.prototype.setAdVolume = function(value) {
   this.callEvent_('AdVolumeChange');
 };
 
-
 /**
  * Returns a list of companion ads for the ad.
- *
  * @return {string} List of companions in VAST XML.
  */
 VpaidVideoPlayer.prototype.getAdCompanions = function() {
   return this.attributes_['companions'];
 };
 
-
 /**
  * Returns a list of icons.
- *
  * @return {string} A list of icons.
  */
 VpaidVideoPlayer.prototype.getAdIcons = function() {
   return this.attributes_['icons'];
 };
 
-
 /**
  * Logs events and messages.
- *
  * @param {string} message
  */
 VpaidVideoPlayer.prototype.log = function(message) {
   console.log(message);
 };
 
-
 /**
  * Calls an event if there is a callback.
- *
  * @param {string} eventType
  * @private
  */
@@ -484,10 +419,8 @@ VpaidVideoPlayer.prototype.callEvent_ = function(eventType) {
   }
 };
 
-
 /**
  * Main function called by wrapper to get the VPAID ad.
- *
  * @return {Object} The VPAID compliant ad.
  */
 var getVPAIDAd = function() {
