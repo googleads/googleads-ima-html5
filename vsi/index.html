@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <title>IMA HTML5 Video Suite Inspector</title>
+    </head>
+    <body>
+        <h1>IMA HTML5 Video Suite Inspector</h1>
+
+        <h4>Test Your VAST Ad Response</h4>
+
+        <p class="intro-text">To check whether your video ad response will work with the IMA SDK,
+            paste your VAST ad tag or VAST ad response into the text field below and
+            click the <b>Test Ad</b> button. Our video player will attempt
+            to interpret the response, play the ad,  and ping the tracking URLs. You
+            can also test your VPAID ads by including one in your VAST response. To
+            generate a URL which will automatically include the VAST tag,
+            click the <b>Generate Shareable URL</b> button.
+        </p>
+        <aside class="note">
+            <span class="material-icons-outlined">star</span>
+            <p>If the page is blank below this point, disable any ad blockers
+                you have installed and refresh the page.
+            </p>
+        </aside>
+
+        <div class="main-intro">
+            <div class="vast-controls">
+                <div class="radio-control label small">Input type:</div>
+                <div class="radio-control large">
+                    <input type="radio" name="vast-type" checked="checked" id="vast-tag-radio"/>
+                    <label for="vast-tag-radio">VAST tag (<span id="sample-tag-link" class="link">Sample</span>)</label>
+                </div>
+                <div class="radio-control">
+                    <input type="radio" name="vast-type" id="vast-xml-radio" />
+                    <label for="vast-xml-radio">VAST XML</label>
+                </div>
+                <textarea id="vast-tag-url" name="vast-tag-url"></textarea>
+                <textarea id="vast-xml" name="vast-xml">&lt;VAST&gt;...&lt;/VAST&gt;</textarea>
+                <button id="test-ad-button" type="button" class="button button-blue">Test Ad</button>
+                <div id="http-warning" class="warning">
+                    <p>
+                    WARNING: You're using an HTTP ad tag on an HTTPS website.
+                    This can cause your ad to fail. We recommend changing your
+                    ad tag to use HTTPS instead. If you do not have an HTTPS
+                    version of this tag, you can test using our
+                    <a href="https://googleads.github.io/googleads-ima-html5/advanced/">
+                    IMA HTML5 SDK Advanced Demo</a> hosted on GitHub.
+                    </p>
+                </div>
+                <div id="advanced-controls-wrapper" class="clear-left">
+                    <div id="advanced-controls-header" class="clear-left">
+                        <div id='advanced-controls-arrow'>&#9656;</div>
+                        Advanced controls
+                    </div>
+                    <div id="advanced-controls" class="clear-left">
+                        <div class="checkbox-control label large">MIME types (optional):</div>
+                        <div id="mime-checkboxes">
+                            <div class="checkbox-control">
+                                <input type="checkbox" id="video/mp4" class="mime-checkbox" selected="false">
+                                <label for="video/mp4">video/mp4</label>
+                            </div>
+                            <div class="checkbox-control">
+                                <input type="checkbox" id="video/webm" class="mime-checkbox" selected="false">
+                                <label for="video/webm">video/webm</label>
+                            </div>
+                            <div class="checkbox-control">
+                                <input type="checkbox" id="video/ogg" class="mime-checkbox" selected="false">
+                                <label for="video/ogg">video/ogg</label>
+                            </div>
+                            <div class="checkbox-control">
+                                <input type="checkbox" id="audio/mp4" class="mime-checkbox" selected="false">
+                                <label for="audio/mp4">audio/mp4</label>
+                            </div>
+                        </div>
+                        <div class="radio-control label large clear-left"><a href="https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/reference/js/google.ima.ImaSdkSettings#.VpaidMode" target="_blank">VPAID mode</a>:</div>
+                        <div id="vpaid-radios">
+                            <div class="radio-control">
+                                <input type="radio" id="vpaid-enabled" name="vpaid-radio-group" checked="checked">
+                                <label for="vpaid-enabled">Enabled</label>
+                            </div>
+                            <div class="radio-control">
+                                <input type="radio" id="vpaid-insecure" name="vpaid-radio-group">
+                                <label for="vpaid-insecure">Insecure</label>
+                            </div>
+                            <div class="radio-control">
+                                <input type="radio" id="vpaid-disabled" name="vpaid-radio-group">
+                                <label for="vpaid-disabled">Disabled</label>
+                            </div>
+                        </div>
+                        <div id="preloading-label" class="radio-control label large clear-left"><a href="https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/preload" target="_blank">Preloading media</a>:</div>
+                        <div id="preloading-radios">
+                            <div class="radio-control">
+                                <input type="radio" id="preloading-true" name="preloading-radio-group">
+                                <label for="preloading-true">True</label>
+                            </div>
+                            <div class="radio-control">
+                                <input type="radio" id="preloading-false" name="preloading-radio-group" checked="checked">
+                                <label for="preloading-false">False</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="share-button-wrapper">
+                    <button id="share-link-button" type="button" class="button button-blue">Generate Shareable URL</button>
+                    <div id="shorten-share-link-checkbox-div" class="checkbox-control">
+                        <input id="shorten-share-link-checkbox" type="checkbox"selected="false" style="display: none;">
+                        <label for="shorten-share-link-checkbox" style="display: none;">Shorten my URL</label>
+                    </div>
+                </div>
+                <textarea id="share-link-text" wrap="soft"></textarea>
+            </div>
+        </div>
+
+        <div class="player-section divider">
+            <h3>Video Player</h3>
+            <div id="video-player" class="video-player-wrapper expanded-view">
+                <video class="video-stream" id="h5-player" poster="https://developers.google.com/interactive-media-ads/images/vsi_poster.jpg" playsinline>
+                    <source src="//s0.2mdn.net/4253510/google_ddm_animation_480P.mp4"/>
+                    <source src="//s0.2mdn.net/4253510/google_ddm_animation_480P.webm"/>
+                </video>
+                <div id="h5-ad-container"></div>
+                <div class="video-controls" id="video-controls">
+                    <table cellpadding="0" cellspacing="0" class="player-chrome">
+                        <tr>
+                            <td class="play-segment">
+                                <button class="play-button" id="play-button">
+                                    <span class="icon"></span>
+                                </button>
+                            </td>
+                            <td class="duration-segment">
+                                <div class="progress-text">
+                                    <span class="current-time" id="current-time">00:00</span>
+                                    <span> / </span>
+                                    <span class="duration-time" id="duration-time">--:--</span>
+                                </div>
+                            </td>
+                            <td class="progress-segment">
+                                <div id="progress-bar" class="progress-bar">
+                                    <div id="progress-list" class="progress-list">
+                                        <div id="play-progress" class="play-progress" style="width: 0%; "></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="volume-segment">
+                                <button class="volume-button" id="volume-button">
+                                    <span class="icon"></span>
+                                </button>
+                            </td>
+                            <td class="branding-segment">
+                                <span class="player-branding-normal"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="report report-card-wrapper divider">
+            <h3 style="float: left">Events</h3>
+            <div class="report-stats" style="display: none;">
+                <p>Vast Compliance: <span id="report-vast-compliance"></span></p>
+                <p>Version: <span id="report-version"></span></p>
+                <p>Type: <span id="report-type"></span></p>
+                <p>Creatives: <span id="report-creative-counts"></span></p>
+            </div>
+            <div class="report report-events-wrapper">
+                <ul id="report-events"></ul>
+            </div>
+            <button id="clear-log-button" type="button" class="button button-blue">Clear log</button>
+        </div>
+
+        <div id="companion-section" class="companion-section divider">
+            <h3>Companions</h3>
+            <div style="width:732px;">
+                <aside class="note">
+                    <span class="material-icons-outlined">star</span>
+                    <p>This page is served over HTTPS. Any companion resources
+                        <b>not</b> served over HTTPS may be blocked, preventing
+                        your companions from displaying.
+                    </p>
+                </aside>
+            </div>
+        </div>
+
+        <script src="https://imasdk.googleapis.com/js/sdkloader/ima3_debug.js"></script>
+        <script src="vsi.js"></script>
+
+        <script>
+            var googletag = googletag || {};
+            googletag.cmd = googletag.cmd || [];
+            (function() {
+                var gads = document.createElement('script');
+                gads.async = true;
+                gads.type = 'text/javascript';
+                gads.src = '//www.googletagservices.com/tag/js/gpt.js';
+                var node = document.getElementsByTagName('script')[0];
+                node.parentNode.insertBefore(gads, node);
+            })()
+        </script>
+
+        <script>
+            googletag.cmd.push(function() {
+                var player = new VideoSuiteInspector.players.h5player.HTML5Player();
+                var url = document.URL;
+                new VideoSuiteInspector.ui.UserInterface(player, url);
+            });
+        </script>
+    </body>
+</html>
