@@ -3,11 +3,6 @@
 // Note that this example is provided "as is", WITHOUT WARRANTY
 // of any kind either expressed or implied.
 
-<<<<<<< HEAD
-goog.module('google3.personalization.zipit.frontend.javascript.external-javascript.ads.interactivemedia.sdk.clientside.samples.googleads-ima-html5.advanced.video_player');
-
-=======
->>>>>>> gh-pages
 /**
  * Handles video player functionality.
  */
@@ -27,13 +22,7 @@ VideoPlayer.prototype.preloadContent = function(contentLoadedAction) {
   if (this.isMobilePlatform()) {
     this.preloadListener_ = contentLoadedAction;
     this.contentPlayer.addEventListener(
-<<<<<<< HEAD
         'loadedmetadata', contentLoadedAction, false);
-=======
-        'loadedmetadata',
-        contentLoadedAction,
-        false);
->>>>>>> gh-pages
     this.contentPlayer.load();
   } else {
     contentLoadedAction();
@@ -43,13 +32,7 @@ VideoPlayer.prototype.preloadContent = function(contentLoadedAction) {
 VideoPlayer.prototype.removePreloadListener = function() {
   if (this.preloadListener_) {
     this.contentPlayer.removeEventListener(
-<<<<<<< HEAD
         'loadedmetadata', this.preloadListener_, false);
-=======
-        'loadedmetadata',
-        this.preloadListener_,
-        false);
->>>>>>> gh-pages
     this.preloadListener_ = null;
   }
 };
@@ -68,12 +51,7 @@ VideoPlayer.prototype.isMobilePlatform = function() {
        navigator.userAgent.toLowerCase().indexOf('android') > -1);
 };
 
-<<<<<<< HEAD
 VideoPlayer.prototype.resize = function(position, top, left, width, height) {
-=======
-VideoPlayer.prototype.resize = function(
-    position, top, left, width, height) {
->>>>>>> gh-pages
   this.videoPlayerContainer_.style.position = position;
   this.videoPlayerContainer_.style.top = top + 'px';
   this.videoPlayerContainer_.style.left = left + 'px';

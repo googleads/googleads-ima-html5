@@ -25,7 +25,6 @@ function setUpIMA() {
   // Listen and respond to ads loaded and error events.
   adsLoader.addEventListener(
       google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
-<<<<<<< HEAD
       onAdsManagerLoaded, false);
   adsLoader.addEventListener(
       google.ima.AdErrorEvent.Type.AD_ERROR, onAdError, false);
@@ -35,18 +34,6 @@ function setUpIMA() {
   var contentEndedListener = function() {
     adsLoader.contentComplete();
   };
-=======
-      onAdsManagerLoaded,
-      false);
-  adsLoader.addEventListener(
-      google.ima.AdErrorEvent.Type.AD_ERROR,
-      onAdError,
-      false);
-
-  // An event listener to tell the SDK that our content video
-  // is completed so the SDK can play any post-roll ads.
-  var contentEndedListener = function() {adsLoader.contentComplete();};
->>>>>>> gh-pages
   videoContent.onended = contentEndedListener;
 
   // Request video ads.
@@ -67,10 +54,6 @@ function setUpIMA() {
   adsLoader.requestAds(adsRequest);
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> gh-pages
 function createAdDisplayContainer() {
   // We assume the adContainer is the DOM id of the element that will house
   // the ads.
@@ -100,7 +83,6 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
   var adsRenderingSettings = new google.ima.AdsRenderingSettings();
   adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
   // videoContent should be set to the content video element.
-<<<<<<< HEAD
   adsManager =
       adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
 
@@ -108,44 +90,16 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
   adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
   adsManager.addEventListener(
       google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, onContentPauseRequested);
-=======
-  adsManager = adsManagerLoadedEvent.getAdsManager(
-      videoContent, adsRenderingSettings);
-
-  // Add listeners to the required events.
-  adsManager.addEventListener(
-      google.ima.AdErrorEvent.Type.AD_ERROR,
-      onAdError);
-  adsManager.addEventListener(
-      google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED,
-      onContentPauseRequested);
->>>>>>> gh-pages
   adsManager.addEventListener(
       google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,
       onContentResumeRequested);
   adsManager.addEventListener(
-<<<<<<< HEAD
       google.ima.AdEvent.Type.ALL_ADS_COMPLETED, onAdEvent);
 
   // Listen to any additional events, if necessary.
   adsManager.addEventListener(google.ima.AdEvent.Type.LOADED, onAdEvent);
   adsManager.addEventListener(google.ima.AdEvent.Type.STARTED, onAdEvent);
   adsManager.addEventListener(google.ima.AdEvent.Type.COMPLETE, onAdEvent);
-=======
-      google.ima.AdEvent.Type.ALL_ADS_COMPLETED,
-      onAdEvent);
-
-  // Listen to any additional events, if necessary.
-  adsManager.addEventListener(
-      google.ima.AdEvent.Type.LOADED,
-      onAdEvent);
-  adsManager.addEventListener(
-      google.ima.AdEvent.Type.STARTED,
-      onAdEvent);
-  adsManager.addEventListener(
-      google.ima.AdEvent.Type.COMPLETE,
-      onAdEvent);
->>>>>>> gh-pages
 }
 
 function onAdEvent(adEvent) {
@@ -173,11 +127,7 @@ function onAdEvent(adEvent) {
             function() {
               var remainingTime = adsManager.getRemainingTime();
             },
-<<<<<<< HEAD
             300);  // every 300ms
-=======
-            300); // every 300ms
->>>>>>> gh-pages
       }
       break;
     case google.ima.AdEvent.Type.COMPLETE:
@@ -210,10 +160,6 @@ function onContentResumeRequested() {
   // to play content. It is the responsibility of the Publisher to
   // implement this function when necessary.
   // setupUIForContent();
-<<<<<<< HEAD
-=======
-
->>>>>>> gh-pages
 }
 
 // Wire UI element references and UI event listeners.
