@@ -64,6 +64,12 @@ h3 {
   font-family: "Google Sans", "Noto Sans", "Noto Sans JP", "Noto Sans KR", "Noto Naskh Arabic", "Noto Sans Thai", "Noto Sans Hebrew", "Noto Sans Bengali", sans-serif;
   font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
+}
+
+.play-button,
+.volume-button {
+  cursor: pointer;
 }
 
 .radio-control {
@@ -75,6 +81,13 @@ h3 {
   font-weight: bold;
 }
 
+.radio-control > label,
+.radio-control > input,
+.checkbox-control > label,
+.checkbox-control > input {
+  cursor: pointer;
+}
+
 .radio-control.small {
   width: 7em;
 }
@@ -83,13 +96,9 @@ h3 {
   width: 11em;
 }
 
-#mime-checkboxes{
-  float: left;
-  max-width: 600px;
-  width: 100%;
-}
-
-#vpaid-radios{
+#mime-checkboxes,
+#vpaid-radios,
+#preloading-radios{
   float: left;
   max-width: 600px;
   width: 100%;
@@ -97,9 +106,6 @@ h3 {
 
 #preloading-radios {
   height: 30px;
-  float: left;
-  max-width: 600px;
-  width: 100%;
 }
 
 #preloading-label {
@@ -111,36 +117,23 @@ h3 {
   width: 100%;
 }
 
-.checkbox-control{
-  width: 11.5em;
-  float: left;
-}
-
+.checkbox-control,
 .radio-control {
   width: 11.5em;
   float: left;
 }
 
-.checkbox-control.label{
-  font-weight: bold;
-}
-
+.checkbox-control.label,
 .radio-control.label {
   font-weight: bold;
 }
 
-.checkbox-control.small{
-  width: 7em;
-}
-
+.checkbox-control.small,
 .radio-control.small {
   width: 7em;
 }
 
-.checkbox-control.large{
-  width: 11em;
-}
-
+.checkbox-control.large,
 .radio-cotnrol.large {
   width: 11em;
 }
@@ -177,6 +170,11 @@ h3 {
 
 #vast-xml {
   display: none;
+}
+
+#vast-xml-radio,
+#vast-tag-radio {
+  cursor: pointer;
 }
 
 #http-warning {
@@ -492,10 +490,7 @@ h3 {
   margin-top: .5em;
 }
 
-.ad {
-  float: left;
-}
-
+.ad,
 .ad-inset {
   float: left;
 }
