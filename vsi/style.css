@@ -1,11 +1,12 @@
 /* Copyright 2012 Google Inc. All Rights Reserved.
-  You may study, modify, and use this example for any purpose.
-  Note that this example is provided "as is", WITHOUT WARRANTY
-  of any kind either expressed or implied. */
+You may study, modify, and use this example for any purpose.
+Note that this example is provided "as is", WITHOUT WARRANTY
+of any kind either expressed or implied. */
 body {
   font: 400 16px/24px Roboto,Noto Sans,Noto Sans JP,Noto Sans KR,Noto Naskh Arabic,Noto Sans Thai,Noto Sans Hebrew,Noto Sans Bengali,sans-serif;
-  margin: 16px;
+  margin: 0;
   -webkit-font-smoothing: antialiased;
+  background-color: #dadce0;
 }
 
 h1 {
@@ -41,6 +42,52 @@ h3 {
 
 .note > p {
   margin: 0 0 0 32px;
+}
+
+#top-logo-bar {
+  height: 48px;
+  width: 100%;
+  background-color: white;
+  padding: 0 24px;
+}
+
+#top-logo-bar > p {
+  margin: 0;
+  padding-top: 10px;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+#top-logo-bar > p > a{
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+#top-link-bar {
+  height: 48px;
+  width: 100%;
+  background-color: #1e8e3e;
+  box-shadow: 0 2px 2px 2px #c2c2c2;
+}
+
+#top-link-bar > a {
+  text-decoration: none;
+  padding: 12px 16px;
+  display: inline-block;
+  color: white;
+  font-size: 14px;
+}
+
+#top-link-bar > a:hover{
+  color: #ffffffb3;
+}
+
+#main-container {
+  background-color: white;
+  margin: 24px;
+  padding: 40px;
+  border-radius: 3px;
+  box-shadow: 0 0 1px 2px #c2c2c2;
 }
 
 .main-intro p {
@@ -102,10 +149,6 @@ h3 {
   float: left;
   max-width: 600px;
   width: 100%;
-}
-
-#preloading-radios {
-  height: 30px;
 }
 
 #preloading-label {
