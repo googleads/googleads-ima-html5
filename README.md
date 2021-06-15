@@ -1,7 +1,7 @@
 ## Google Ads HTML5 IMA SDK
 
 This project hosts samples for the
-[HTML5 IMA SDK](https://developers.google.com/interactive-media-ads/docs/sdks/html5/v3/).
+[HTML5 IMA SDK](//developers.google.com/interactive-media-ads/docs/sdks/html5/client-side).
 
 ### Samples Breakdown
 
@@ -36,8 +36,7 @@ https://developers.google.com/interactive-media-ads/docs/sdks/html5/v3/.
 ### Announcements and Updates
 
 For API and client library updates and news, please follow our
-[Google+ Ads Developers page](https://plus.google.com/+GoogleAdsDevelopers/posts)
-and our [Google Ads Developers blog](http://googleadsdeveloper.blogspot.com/)
+[Google Ads Developers blog](http://googleadsdeveloper.blogspot.com/)
 
 Copyright 2013 Google Inc. All Rights Reserved. You may study, modify, and use
 this example for any purpose. Note that this example is provided "as is",
