@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" href="style.css"/>
 
-    <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-    <script type="text/javascript" src="application.js"></script>
-    <script type="text/javascript" src="ads.js"></script>
-    <script type="text/javascript" src="video_player.js"></script>
+    <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <script src="application.js"></script>
+    <script src="ads.js"></script>
+    <script src="video_player.js"></script>
 
     <!-- GPT Companion Code -->
     <!-- Initialize the tagging library -->
-     <script type='text/javascript'>
+     <script>
        var googletag = googletag || {};
        googletag.cmd = googletag.cmd || [];
        (function() {
          var gads = document.createElement('script');
          gads.async = true;
          gads.type = 'text/javascript';
-         gads.src = '//www.googletagservices.com/tag/js/gpt.js';
+         gads.src = 'https://www.googletagservices.com/tag/js/gpt.js';
          var node = document.getElementsByTagName('script')[0];
          node.parentNode.insertBefore(gads, node);
        })();
      </script>
 
      <!-- Register your companion slots -->
-     <script type='text/javascript'>
+     <script>
        googletag.cmd.push(function() {
          // Supply YOUR_NETWORK/YOUR_UNIT_PATH in place of 6062/iab_vast_samples.
          googletag.defineSlot('/6062/iab_vast_samples', [728, 90], 'companionDiv')
@@ -60,7 +60,7 @@
     <!-- Declare a div where you want the companion to appear. Use
           googletag.display() to make sure the ad is displayed. -->
     <div id="companionDiv">
-      <script type="text/javascript">
+      <script>
         // Using the command queue to enable asynchronous loading.
         // The unit will not actually display now - it will display when
         // the video player is displaying the ads.
@@ -85,7 +85,7 @@
 
     <footer>Copyright (C) 2013 Google Inc.</footer>
   </div>
-  <script type="text/javascript">
+  <script>
   var application = null;
 
   window.onload = function() {
