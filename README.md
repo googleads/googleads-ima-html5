@@ -14,7 +14,11 @@ This project hosts samples for the
     expands on the advanced sample to demonstrate an integration with a video
     playlist
 *   [VPAID](https://github.com/googleads/googleads-ima-html5/tree/master/vpaid) -
-    Sample VPAID ads that work with the IMA SDK
+    these JavaScript samples are used in the
+    [IMA VPAID sample ad tags](https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/tags#single-vpaid-2.0-linear).
+    The code in these samples is needed in VPAID ads, but not in IMA
+    implementations for VPAID ads. For more information on VPAID ads, see the
+    [IAB VPAID docs](https://iabtechlab.com/standards/video-player-ad-interface-definition-vpaid/).
 
 ### Requirements
 
