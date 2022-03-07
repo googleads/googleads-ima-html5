@@ -5,15 +5,15 @@ This project hosts samples for the
 
 ### Samples Breakdown
 
-*   [Simple](https://github.com/googleads/googleads-ima-html5/tree/master/simple) -
+*   [Simple](https://github.com/googleads/googleads-ima-html5/tree/main/simple) -
     the bare minimum required for an IMA integration
-*   [Advanced](https://github.com/googleads/googleads-ima-html5/tree/master/advanced) -
+*   [Advanced](https://github.com/googleads/googleads-ima-html5/tree/main/advanced) -
     IMA integration with more advanced UI including event logging, play/pause,
     and fullscreen, and companion ads
-*   [Playlist](https://github.com/googleads/googleads-ima-html5/tree/master/playlist) -
+*   [Playlist](https://github.com/googleads/googleads-ima-html5/tree/main/playlist) -
     expands on the advanced sample to demonstrate an integration with a video
     playlist
-*   [VPAID](https://github.com/googleads/googleads-ima-html5/tree/master/vpaid) -
+*   [VPAID](https://github.com/googleads/googleads-ima-html5/tree/main/vpaid) -
     these JavaScript samples are used in the
     [IMA VPAID sample ad tags](https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/tags#single-vpaid-2.0-linear).
     The code in these samples is needed in VPAID ads, but not in IMA
