@@ -6,7 +6,7 @@
 /**
  * Handles user interaction and creates the player and ads controllers.
  */
-var Application = function() {
+const Application = function() {
   this.adTagBox_ = document.getElementById('tagText');
   this.sampleAdTag_ = document.getElementById('sampleAdTag');
   this.sampleAdTag_.addEventListener(
@@ -22,9 +22,9 @@ var Application = function() {
   this.fullscreenWidth = null;
   this.fullscreenHeight = null;
 
-  var fullScreenEvents =
+  const fullScreenEvents =
       ['fullscreenchange', 'mozfullscreenchange', 'webkitfullscreenchange'];
-  for (key in fullScreenEvents) {
+  for (let key in fullScreenEvents) {
     document.addEventListener(
         fullScreenEvents[key], this.bind_(this, this.onFullscreenChange_),
         false);
@@ -44,11 +44,15 @@ var Application = function() {
 };
 
 Application.prototype.SAMPLE_AD_TAG_ = 'https://pubads.g.doubleclick.net/' +
-    'gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&' +
-    'ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&' +
-    'unviewed_position_start=1&' +
-    'cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=';
+    'gampad/ads?iu=/21775744923/external/single_ad_samples&sz=640x480&' +
+    'cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&' +
+    'gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&' +
+    'correlator=';
 
+/**
+ * Registers or removes video ended callback based on the 'enable' param.
+ * @param {boolean} enable
+ */
 Application.prototype.setVideoEndedCallbackEnabled = function(enable) {
   if (enable) {
     this.videoPlayer_.registerVideoEndedCallback(this.videoEndedCallback_);
@@ -57,17 +61,27 @@ Application.prototype.setVideoEndedCallbackEnabled = function(enable) {
   }
 };
 
+/**
+ * Logs messages to the console.
+ * @param {string} message
+ */
 Application.prototype.log = function(message) {
   console.log(message);
   this.console_.innerHTML = this.console_.innerHTML + '<br/>' + message;
 };
 
+/**
+ * Handles resuming content following ads.
+ */
 Application.prototype.resumeAfterAd = function() {
   this.videoPlayer_.play();
   this.adsActive_ = false;
   this.updateChrome_();
 };
 
+/**
+ * Handles pausing content for ad breaks.
+ */
 Application.prototype.pauseForAd = function() {
   this.adsActive_ = true;
   this.playing_ = true;
@@ -75,20 +89,35 @@ Application.prototype.pauseForAd = function() {
   this.updateChrome_();
 };
 
+/**
+ * Pauses video on ad clicks.
+ */
 Application.prototype.adClicked = function() {
   this.updateChrome_();
 };
 
+/**
+ * Function binding helper function.
+ * @param {!Object} thisObj object to bind function.
+ * @param {!Function} fn function being bound to object.
+ * @return {!Function} returns the bound function.
+ */
 Application.prototype.bind_ = function(thisObj, fn) {
   return function() {
     fn.apply(thisObj, arguments);
   };
 };
 
+/**
+ * Set the sample ad tag as the ad tag box's value.
+ */
 Application.prototype.onSampleAdTagClick_ = function() {
   this.adTagBox_.value = this.SAMPLE_AD_TAG_;
 };
 
+/**
+ * Handles pausing the content or ads for ad clicks.
+ */
 Application.prototype.onClick_ = function() {
   if (!this.adsDone_) {
     if (this.adTagBox_.value == '') {
@@ -129,10 +158,13 @@ Application.prototype.onClick_ = function() {
   this.updateChrome_();
 };
 
+/**
+ * Handles making the video fullscreen, or renturning from fullscreen.
+ */
 Application.prototype.onFullscreenClick_ = function() {
   if (this.fullscreen) {
     // The video is currently in fullscreen mode
-    var cancelFullscreen = document.exitFullscreen || document.exitFullScreen ||
+    const cancelFullscreen = document.exitFullscreen || document.exitFullScreen ||
         document.webkitCancelFullScreen || document.mozCancelFullScreen;
     if (cancelFullscreen) {
       cancelFullscreen.call(document);
@@ -141,7 +173,7 @@ Application.prototype.onFullscreenClick_ = function() {
     }
   } else {
     // Try to enter fullscreen mode in the browser
-    var requestFullscreen = document.documentElement.requestFullscreen ||
+    const requestFullscreen = document.documentElement.requestFullscreen ||
         document.documentElement.webkitRequestFullscreen ||
         document.documentElement.mozRequestFullscreen ||
         document.documentElement.requestFullScreen ||
@@ -160,6 +192,9 @@ Application.prototype.onFullscreenClick_ = function() {
   requestFullscreen.call(document.documentElement);
 };
 
+/**
+ * Handles updating the play button image.
+ */
 Application.prototype.updateChrome_ = function() {
   if (this.playing_) {
     this.playButton_.textContent = 'II';
@@ -169,11 +204,17 @@ Application.prototype.updateChrome_ = function() {
   }
 };
 
+/**
+ * Removes the 'loadedmetadata' listener and makes the ad request.
+ */
 Application.prototype.loadAds_ = function() {
   this.videoPlayer_.removePreloadListener();
   this.ads_.requestAds(this.adTagUrl_);
 };
 
+/**
+ * Handles resizing ads and content during fullscreen button clicks.
+ */
 Application.prototype.onFullscreenChange_ = function() {
   if (this.fullscreen) {
     // The user just exited fullscreen
@@ -186,8 +227,8 @@ Application.prototype.onFullscreenChange_ = function() {
   } else {
     // The fullscreen button was just clicked
     // Resize the ad container
-    var width = this.fullscreenWidth;
-    var height = this.fullscreenHeight;
+    const width = this.fullscreenWidth;
+    const height = this.fullscreenHeight;
     this.makeAdsFullscreen_();
     // Make the video take up the entire screen
     this.videoPlayer_.resize('absolute', 0, 0, width, height);
@@ -195,10 +236,16 @@ Application.prototype.onFullscreenChange_ = function() {
   }
 };
 
+/**
+ * Resizes ads for fullscreen.
+ */
 Application.prototype.makeAdsFullscreen_ = function() {
   this.ads_.resize(this.fullscreenWidth, this.fullscreenHeight);
 };
 
+/**
+ * Makes call to update UI on content ending.
+ */
 Application.prototype.onContentEnded_ = function() {
   this.ads_.contentEnded();
 };

@@ -12,15 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-var adsManager;
-var adsLoader;
-var adDisplayContainer;
-var playButton;
-var videoContent;
-var adsInitialized;
-var autoplayAllowed;
-var autoplayRequiresMuted;
+let adsManager;
+let adsLoader;
+let adDisplayContainer;
+let playButton;
+let videoContent;
+let adsInitialized;
+let autoplayAllowed;
+let autoplayRequiresMuted;
 
+/**
+ * Initializes IMA setup.
+ */
 function initDesktopAutoplayExample() {
   videoContent = document.getElementById('contentElement');
   playButton = document.getElementById('playButton');
@@ -37,14 +40,20 @@ function initDesktopAutoplayExample() {
   checkAutoplaySupport();
 }
 
+/**
+ * Attempts autoplay and handles success and failure cases.
+ */
 function checkAutoplaySupport() {
   // Test for autoplay support with our content player.
-  var playPromise = videoContent.play();
+  const playPromise = videoContent.play();
   if (playPromise !== undefined) {
     playPromise.then(onAutoplayWithSoundSuccess).catch(onAutoplayWithSoundFail);
   }
 }
 
+/**
+ * Handles case where autoplay succeeded with sound.
+ */
 function onAutoplayWithSoundSuccess() {
   // If we make it here, unmuted autoplay works.
   videoContent.pause();
@@ -53,20 +62,29 @@ function onAutoplayWithSoundSuccess() {
   autoplayChecksResolved();
 }
 
+/**
+ * Handles case where autoplay fails with sound.
+ */
 function onAutoplayWithSoundFail() {
   // Unmuted autoplay failed. Now try muted autoplay.
   checkMutedAutoplaySupport();
 }
 
+/**
+ * Checks if video can autoplay while muted.
+ */
 function checkMutedAutoplaySupport() {
   videoContent.volume = 0;
   videoContent.muted = true;
-  var playPromise = videoContent.play();
+  const playPromise = videoContent.play();
   if (playPromise !== undefined) {
     playPromise.then(onMutedAutoplaySuccess).catch(onMutedAutoplayFail);
   }
 }
 
+/**
+ * Handles case where autoplay succeeded while muted.
+ */
 function onMutedAutoplaySuccess() {
   // If we make it here, muted autoplay works but unmuted autoplay does not.
   videoContent.pause();
@@ -75,6 +93,9 @@ function onMutedAutoplaySuccess() {
   autoplayChecksResolved();
 }
 
+/**
+ * Handles case where autoplay failed while muted.
+ */
 function onMutedAutoplayFail() {
   // Both muted and unmuted autoplay failed. Fall back to click to play.
   videoContent.volume = 1;
@@ -84,6 +105,9 @@ function onMutedAutoplayFail() {
   autoplayChecksResolved();
 }
 
+/**
+ * Sets up IMA ad display container, ads loader, and makes an ad request.
+ */
 function setUpIMA() {
   // Create the ad display container.
   createAdDisplayContainer();
@@ -101,6 +125,9 @@ function setUpIMA() {
   videoContent.onended = contentEndedListener;
 }
 
+/**
+ * Handles content ending and calls adsLoader.contentComplete()
+ */
 function contentEndedListener() {
   videoContent.onended = null;
   if (adsLoader) {
@@ -108,13 +135,17 @@ function contentEndedListener() {
   }
 }
 
+/**
+ * Builds an ad request and uses it to request ads.
+ */
 function autoplayChecksResolved() {
   // Request video ads.
-  var adsRequest = new google.ima.AdsRequest();
+  const adsRequest = new google.ima.AdsRequest();
   adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
-      'sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&' +
-      'impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&' +
-      'cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=';
+      'iu=/21775744923/external/single_ad_samples&sz=640x480&' +
+      'cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&' +
+      'gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&' +
+      'impl=s&correlator=';
 
   // Specify the linear and nonlinear slot sizes. This helps the SDK to
   // select the correct creative if multiple are returned.
@@ -129,6 +160,9 @@ function autoplayChecksResolved() {
   adsLoader.requestAds(adsRequest);
 }
 
+/**
+ * Sets the 'adContainer' div as the IMA ad display container.
+ */
 function createAdDisplayContainer() {
   // We assume the adContainer is the DOM id of the element that will house
   // the ads.
@@ -136,6 +170,9 @@ function createAdDisplayContainer() {
       document.getElementById('adContainer'), videoContent);
 }
 
+/**
+ * Loads the video content and initializes IMA ad playback.
+ */
 function playAds() {
   try {
     if (!adsInitialized) {
@@ -153,9 +190,13 @@ function playAds() {
   }
 }
 
+/**
+ * Handles the ad manager loading and sets ad event listeners.
+ * @param {!google.ima.AdsManagerLoadedEvent} adsManagerLoadedEvent
+ */
 function onAdsManagerLoaded(adsManagerLoadedEvent) {
   // Get the ads manager.
-  var adsRenderingSettings = new google.ima.AdsRenderingSettings();
+  const adsRenderingSettings = new google.ima.AdsRenderingSettings();
   adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
   // videoContent should be set to the content video element.
   adsManager =
@@ -186,10 +227,14 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
   }
 }
 
+/**
+ * Handles actions taken in response to ad events.
+ * @param {!google.ima.AdEvent} adEvent
+ */
 function onAdEvent(adEvent) {
   // Retrieve the ad from the event. Some events (e.g. ALL_ADS_COMPLETED)
   // don't have ad object associated.
-  var ad = adEvent.getAd();
+  const ad = adEvent.getAd();
   switch (adEvent.type) {
     case google.ima.AdEvent.Type.LOADED:
       // This is the first event sent for an ad - it is possible to
@@ -201,6 +246,10 @@ function onAdEvent(adEvent) {
   }
 }
 
+/**
+ * Handles ad errors.
+ * @param {!google.ima.AdErrorEvent} adErrorEvent
+ */
 function onAdError(adErrorEvent) {
   // Handle the error logging.
   console.log(adErrorEvent.getError());
@@ -209,11 +258,17 @@ function onAdError(adErrorEvent) {
   videoContent.play();
 }
 
+/**
+ * Pauses video content and sets up ad UI.
+ */
 function onContentPauseRequested() {
   videoContent.pause();
   videoContent.onended = null;
 }
 
+/**
+ * Resumes video content and removes ad UI.
+ */
 function onContentResumeRequested() {
   videoContent.play();
   videoContent.onended = contentEndedListener;
