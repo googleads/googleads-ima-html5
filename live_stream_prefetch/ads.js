@@ -3,16 +3,19 @@
 // Note that this example is provided "as is", WITHOUT WARRANTY
 // of any kind either expressed or implied.
 
-var adsManager;
-var adsLoader;
-var adDisplayContainer;
-var intervalTimer;
-var playButton;
-var videoContent;
-var adDisplayContainerInitialized;
+let adsManager;
+let adsLoader;
+let adDisplayContainer;
+let intervalTimer;
+let playButton;
+let videoContent;
+let adDisplayContainerInitialized;
 
 const AD_REQUEST_INTERVAL = 30;
 
+/**
+ * Initializes IMA setup.
+ */
 function init() {
   videoContent = document.getElementById('contentElement');
   playButton = document.getElementById('playButton');
@@ -23,6 +26,9 @@ function init() {
   requestAds(0);
 }
 
+/**
+ * Sets up ads loader and associated event listeners.
+ */
 function setUpAdsLoader() {
   // Create the ad display container.
   createAdDisplayContainer();
@@ -37,22 +43,27 @@ function setUpAdsLoader() {
 
   // An event listener to tell the SDK that our content video
   // is completed so the SDK can play any post-roll ads.
-  var contentEndedListener = function() {
+  const contentEndedListener = function() {
     adsLoader.contentComplete();
   };
   videoContent.onended = contentEndedListener;
 }
 
+/**
+ * Makes an ad request with a prefetch time.
+ * @param {number} liveStreamPrefetchSeconds prefetch time in seconds.
+ */
 function requestAds(liveStreamPrefetchSeconds) {
   if (adsLoader) {
     adsLoader.contentComplete();
   }
   // Request video ads.
-  var adsRequest = new google.ima.AdsRequest();
+  const adsRequest = new google.ima.AdsRequest();
   adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
-      'sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&' +
-      'impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&' +
-      'cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=';
+      'iu=/21775744923/external/single_ad_samples&sz=640x480&' +
+      'cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&' +
+      'gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&' +
+      'correlator=';
 
   // Specify the linear and nonlinear slot sizes. This helps the SDK to
   // select the correct creative if multiple are returned.
@@ -67,6 +78,9 @@ function requestAds(liveStreamPrefetchSeconds) {
   adsLoader.requestAds(adsRequest);
 }
 
+/**
+ * Sets the 'adContainer' div as the IMA ad display container.
+ */
 function createAdDisplayContainer() {
   // We assume the adContainer is the DOM id of the element that will house
   // the ads.
@@ -74,6 +88,9 @@ function createAdDisplayContainer() {
       document.getElementById('adContainer'), videoContent);
 }
 
+/**
+ * Loads the video content and initializes IMA ad playback.
+ */
 function playAds() {
   if (!adDisplayContainerInitialized) {
     // Initialize the container. Must be done via a user action on mobile
@@ -95,9 +112,13 @@ function playAds() {
   }
 }
 
+/**
+ * Handles the ad manager loading and sets ad event listeners.
+ * @param {!google.ima.AdsManagerLoadedEvent} adsManagerLoadedEvent
+ */
 function onAdsManagerLoaded(adsManagerLoadedEvent) {
   // Get the ads manager.
-  var adsRenderingSettings = new google.ima.AdsRenderingSettings();
+  const adsRenderingSettings = new google.ima.AdsRenderingSettings();
   adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
   // videoContent should be set to the content video element.
   adsManager =
@@ -119,10 +140,14 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
   adsManager.addEventListener(google.ima.AdEvent.Type.COMPLETE, onAdEvent);
 }
 
+/**
+ * Handles actions taken in response to ad events.
+ * @param {!google.ima.AdEvent} adEvent
+ */
 function onAdEvent(adEvent) {
   // Retrieve the ad from the event. Some events (e.g. ALL_ADS_COMPLETED)
   // don't have ad object associated.
-  var ad = adEvent.getAd();
+  const ad = adEvent.getAd();
   switch (adEvent.type) {
     case google.ima.AdEvent.Type.LOADED:
       // This is the first event sent for an ad - it is possible to
@@ -142,7 +167,7 @@ function onAdEvent(adEvent) {
         // the remaining time.
         intervalTimer = setInterval(
             function() {
-              var remainingTime = adsManager.getRemainingTime();
+              //Example: const remainingTime = adsManager.getRemainingTime();
             },
             300);  // every 300ms
       }
@@ -166,12 +191,19 @@ function onAdEvent(adEvent) {
   }
 }
 
+/**
+ * Handles ad errors.
+ * @param {!google.ima.AdErrorEvent} adErrorEvent
+ */
 function onAdError(adErrorEvent) {
   // Handle the error logging.
   console.log(adErrorEvent.getError());
   adsManager.destroy();
 }
 
+/**
+ * Pauses video content and sets up ad UI.
+ */
 function onContentPauseRequested() {
   videoContent.pause();
   // This function is where you should setup UI for showing ads (e.g.
@@ -179,6 +211,9 @@ function onContentPauseRequested() {
   // setupUIForAds();
 }
 
+/**
+ * Resumes video content and removes ad UI.
+ */
 function onContentResumeRequested() {
   videoContent.play();
   // This function is where you should ensure that your UI is ready
