@@ -93,7 +93,7 @@ VpaidVideoPlayer.prototype.handshakeVersion = function(version) {
  * @param {number} width The ad width.
  * @param {number} height The ad height.
  * @param {string} viewMode The ad view mode.
- * @param {number} desiredBitrate The desired bitrate.
+ * @param {number} desiredBitrate The chosen bitrate.
  * @param {Object} creativeData Data associated with the creative.
  * @param {Object} environmentVars Runtime variables associated with the
  *     creative like the slot and video slot.

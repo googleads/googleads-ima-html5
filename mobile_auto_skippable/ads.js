@@ -72,7 +72,8 @@ function createAdDisplayContainer() {
  * Loads the video content and initializes IMA ad playback.
  */
 function playAds() {
-  // Initialize the container. Must be done via a user action on mobile devices.
+  // Initialize the container. Must be done through a user action on mobile
+  // devices.
   videoContent.load();
   adDisplayContainer.initialize();
 
@@ -123,8 +124,8 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
  * @param {!google.ima.AdEvent} adEvent
  */
 function onAdEvent(adEvent) {
-  // Retrieve the ad from the event. Some events (e.g. ALL_ADS_COMPLETED)
-  // don't have ad object associated.
+  // Retrieve the ad from the event. Some events (for example,
+  // ALL_ADS_COMPLETED) don't have ad object associated.
   const ad = adEvent.getAd();
   switch (adEvent.type) {
     case google.ima.AdEvent.Type.LOADED:
@@ -176,8 +177,8 @@ function onAdError(adErrorEvent) {
  */
 function onContentPauseRequested() {
   videoContent.pause();
-  // This function is where you should setup UI for showing ads (e.g.
-  // display ad timer countdown, disable seeking etc.)
+  // This function is where you should setup UI for showing ads (for example,
+  // display ad timer countdown, disable seeking and more.)
   // setupUIForAds();
 }
 
