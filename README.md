@@ -39,7 +39,7 @@ https://developers.google.com/interactive-media-ads/docs/sdks/html5/v3/.
 
 ### Announcements and Updates
 
-For API and client library updates and news, please follow our
+For API and client library updates and news, follow our
 [Google Ads Developers blog](http://googleadsdeveloper.blogspot.com/)
 
 Copyright 2013 Google Inc. All Rights Reserved. You may study, modify, and use

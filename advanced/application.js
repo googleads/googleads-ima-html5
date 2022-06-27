@@ -121,7 +121,7 @@ Application.prototype.onSampleAdTagClick_ = function() {
 Application.prototype.onClick_ = function() {
   if (!this.adsDone_) {
     if (this.adTagBox_.value == '') {
-      this.log('Error: please fill in an ad tag');
+      this.log('Error: Fill in an ad tag');
       return;
     } else {
       this.adTagUrl_ = this.adTagBox_.value;

@@ -28,8 +28,8 @@ function initDesktopAutoplayExample() {
   videoContent = document.getElementById('contentElement');
   playButton = document.getElementById('playButton');
   playButton.addEventListener('click', () => {
-    // Initialize the container. Must be done via a user action where autoplay
-    // is not allowed.
+    // Initialize the container. Must be done through a user action where
+    // autoplay is not allowed.
     adDisplayContainer.initialize();
     adsInitialized = true;
     videoContent.load();
@@ -232,8 +232,8 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
  * @param {!google.ima.AdEvent} adEvent
  */
 function onAdEvent(adEvent) {
-  // Retrieve the ad from the event. Some events (e.g. ALL_ADS_COMPLETED)
-  // don't have ad object associated.
+  // Retrieve the ad from the event. Some events (for example,
+  // ALL_ADS_COMPLETED) don't have ad object associated.
   const ad = adEvent.getAd();
   switch (adEvent.type) {
     case google.ima.AdEvent.Type.LOADED:
