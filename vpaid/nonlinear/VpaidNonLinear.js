@@ -154,7 +154,7 @@ const VpaidNonLinear = class {
     linearButton.style.color = 'white';
     linearButton.style.width = '480px';
     linearButton.style.fontFamily = 'sans-serif';
-    linearButton.innerHTML = 'Click here to switch to a linear ad';
+    linearButton.textContent = 'Click here to switch to a linear ad';
     linearButton.addEventListener(
         'click', this.linearButtonClick_.bind(this), false);
     container.appendChild(linearButton);
