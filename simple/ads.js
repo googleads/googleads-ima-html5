@@ -7,6 +7,8 @@ let adsManager;
 let adsLoader;
 let adDisplayContainer;
 let intervalTimer;
+let isAdPlaying;
+let isContentFinished;
 let playButton;
 let videoContent;
 
@@ -38,6 +40,10 @@ function setUpIMA() {
   // An event listener to tell the SDK that our content video
   // is completed so the SDK can play any post-roll ads.
   const contentEndedListener = function() {
+    // An ad might have been playing in the content element, in which case the
+    // content has not actually ended.
+    if (isAdPlaying) return;
+    isContentFinished = true;
     adsLoader.contentComplete();
   };
   videoContent.onended = contentEndedListener;
@@ -176,6 +182,7 @@ function onAdError(adErrorEvent) {
  * Pauses video content and sets up ad UI.
  */
 function onContentPauseRequested() {
+  isAdPlaying = true;
   videoContent.pause();
   // This function is where you should setup UI for showing ads (for example,
   // display ad timer countdown, disable seeking and more.)
@@ -186,7 +193,10 @@ function onContentPauseRequested() {
  * Resumes video content and removes ad UI.
  */
 function onContentResumeRequested() {
-  videoContent.play();
+  isAdPlaying = false;
+  if (!isContentFinished) {
+    videoContent.play();
+  }
   // This function is where you should ensure that your UI is ready
   // to play content. It is the responsibility of the Publisher to
   // implement this function when necessary.
