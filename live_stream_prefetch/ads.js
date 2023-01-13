@@ -167,7 +167,7 @@ function onAdEvent(adEvent) {
         // the remaining time.
         intervalTimer = setInterval(
             function() {
-              //Example: const remainingTime = adsManager.getRemainingTime();
+              // Example: const remainingTime = adsManager.getRemainingTime();
             },
             300);  // every 300ms
       }
