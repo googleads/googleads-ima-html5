@@ -1,0 +1,72 @@
+h2,
+p {
+  text-align: center;
+}
+
+#page-content {
+  position: relative;
+  /* this element's width controls the effective height */
+  /* of the video container's padding-bottom */
+  max-width: 640px;
+  margin: 10px auto;
+}
+
+#video-container {
+  position: relative;
+  /* forces the container to match a 16x9 aspect ratio */
+  /* replace with 75% for a 4:3 aspect ratio, if needed */
+  padding-bottom: 56.25%;
+}
+
+#video-element {
+  /* forces the contents to fill the container */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* apply the ad-container styling to companionDiv */
+#ad-container,
+#audio-companion {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#video-companion {
+  display: block;
+  height: 90px;
+  width: 728px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#message {
+  text-align: center;
+}
+
+#play-pause {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 40px;
+  width: 100px;
+  border-style: none;
+  font-weight: bold;
+  font-size: 25px;
+  opacity: 0.5;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid;
+  color: #000;
+  cursor: pointer;
+  line-height: 0;
+}
+
+#play-pause:hover {
+  border: 1px #f00 solid;
+  color: #f00;
+}

@@ -186,8 +186,9 @@ Application.prototype.switchButtonToPlay_ = function() {
 Application.prototype.onFullscreenClick_ = function() {
   if (this.fullscreen) {
     // The video is currently in fullscreen mode
-    const cancelFullscreen = document.exitFullscreen || document.exitFullScreen ||
-        document.webkitCancelFullScreen || document.mozCancelFullScreen;
+    const cancelFullscreen = document.exitFullscreen ||
+        document.exitFullScreen || document.webkitCancelFullScreen ||
+        document.mozCancelFullScreen;
     if (cancelFullscreen) {
       cancelFullscreen.call(document);
     } else {

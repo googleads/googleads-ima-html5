@@ -13,6 +13,10 @@ This project hosts samples for the
 *   [Playlist](https://github.com/googleads/googleads-ima-html5/tree/main/playlist) -
     expands on the advanced sample to demonstrate an integration with a video
     playlist
+*   [Audio in video](https://github.com/googleads/googleads-ima-html5/tree/main/audio_in_video) -
+    demonstrates the use of the
+    [poster image feature](https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/audio-poster)
+    in an app that supports either audio or video ads.
 *   [VPAID](https://github.com/googleads/googleads-ima-html5/tree/main/vpaid) -
     these JavaScript samples are used in the
     [IMA VPAID sample ad tags](https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/tags#single-vpaid-2.0-linear).
