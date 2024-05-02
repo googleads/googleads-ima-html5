@@ -33,6 +33,9 @@
             <li><a href="https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/tags" target="_blank">
                 Sample ad tags
             </a></li>
+            <li><a href="https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/omsdk" target="_blank">
+                IMA HTML5 Open Measurement guide
+            </a></li>
             </ul>
 
             <h4>Test Your VAST Ad Response</h4>
@@ -127,6 +130,46 @@
                                     <label for="preloading-false">False</label>
                                 </div>
                             </div>
+                            <div id="omsdk-settings" class="clear-left">
+                                <div class="checkbox-control label large">
+                                    <a href="https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/reference/js/google.ima.AdsRequest#omidAccessModeRules" target="_blank">
+                                        Customize Open Measurement access rules:
+                                    </a>
+                                </div>
+                                <div id="omsdk-radios">
+                                    <div class="radio-control">
+                                        <input type="radio" id="no-include-omsdk-rules" name="omsdk-param-radio" checked="checked">
+                                        <label for="no-include-omsdk-rules">No</label>
+                                    </div>
+                                    <div class="radio-control">
+                                        <input type="radio" id="yes-include-omsdk-rules" name="omsdk-param-radio">
+                                        <label for="yes-include-omsdk-rules">Yes</label>
+                                    </div>
+                                </div>
+                                <div id="omsdk-rules-container" class="hidden">
+                                    <div class="omsdk-rule">
+                                        <label>Verification vendor</label>
+                                        <select class="omsdk-verification-vendor-select">
+                                            <option value="COMSCORE">COMSCORE</option>
+                                            <option value="DOUBLEVERIFY">DOUBLEVERIFY</option>
+                                            <option value="GOOGLE">GOOGLE</option>
+                                            <option value="INTEGRAL_AD_SCIENCE">INTEGRAL_AD_SCIENCE</option>
+                                            <option value="MEETRICS">MEETRICS</option>
+                                            <option value="MOAT">MOAT</option>
+                                            <option value="NIELSEN">NIELSEN</option>
+                                            <option value="PIXELATE">PIXELATE</option>
+                                            <option value="OTHER">OTHER</option>
+                                        </select>
+                                        <label>Access mode</label>
+                                        <select class="omsdk-access-mode-select">
+                                            <option value="LIMITED">LIMITED</option>
+                                            <option value="DOMAIN">DOMAIN</option>
+                                            <option value="FULL">FULL</option>
+                                        </select>
+                                  </div>
+                                  <button id="add-omsdk-rule-button" type="button" class="button button-blue">Add access rule</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div id="share-button-wrapper">
@@ -211,6 +254,30 @@
                 </div>
             </div>
         </div>
+
+        <template id="template-omsdk-rule">
+            <div class="omsdk-rule">
+                <label>Verification vendor</label>
+                <select class="omsdk-verification-vendor-select">
+                    <option value="COMSCORE">COMSCORE</option>
+                    <option value="DOUBLEVERIFY">DOUBLEVERIFY</option>
+                    <option value="GOOGLE">GOOGLE</option>
+                    <option value="INTEGRAL_AD_SCIENCE">INTEGRAL_AD_SCIENCE</option>
+                    <option value="MEETRICS">MEETRICS</option>
+                    <option value="MOAT">MOAT</option>
+                    <option value="NIELSEN">NIELSEN</option>
+                    <option value="PIXELATE">PIXELATE</option>
+                    <option value="OTHER">OTHER</option>
+                </select>
+                <label>Access mode</label>
+                <select class="omsdk-access-mode-select">
+                    <option value="LIMITED">LIMITED</option>
+                    <option value="DOMAIN">DOMAIN</option>
+                    <option value="FULL">FULL</option>
+                </select>
+                <button class="button omsdk-setting-remove-button">Remove</button>
+            </div>
+        </template>
 
         <script src="https://imasdk.googleapis.com/js/sdkloader/ima3_debug.js"></script>
         <script src="vsi.js"></script>
