@@ -397,11 +397,7 @@ const VpaidNonLinear = class {
    * @return {number} The time remaining in the ad.
    */
   getAdRemainingTime() {
-    const date = new Date();
-    const currentTime = date.getTime();
-    const remainingTime =
-        this.attributes_.duration - (currentTime - this.startTime_) / 1000.0;
-    return remainingTime;
+    return this.attributes_['remainingTime'];
   }
 
   /**
