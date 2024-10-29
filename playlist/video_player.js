@@ -6,7 +6,7 @@
 /**
  * Handles video player functionality.
  */
-var VideoPlayer = function() {
+const VideoPlayer = function() {
   this.contentPlayer = document.getElementById('content');
   this.adContainer = document.getElementById('adcontainer');
   this.videoPlayerContainer_ = document.getElementById('videoplayer');
