@@ -467,6 +467,6 @@ const VpaidNonLinear = class {
  * Main function called by wrapper to get the VPAID ad.
  * @return {Object} The VPAID compliant ad.
  */
-var getVPAIDAd = function() {
+const getVPAIDAd = function() {
   return new VpaidNonLinear();
 };

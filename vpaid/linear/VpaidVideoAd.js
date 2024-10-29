@@ -6,7 +6,7 @@
 /**
  * @constructor
  */
-var VpaidVideoPlayer = function() {
+const VpaidVideoPlayer = function() {
   /**
    * The slot is the div element on the main page that the ad is supposed to
    * occupy.
@@ -154,10 +154,11 @@ VpaidVideoPlayer.prototype.timeUpdateHandler_ = function() {
   if (this.nextQuartileIndex_ >= this.quartileEvents_.length) {
     return;
   }
-  var percentPlayed =
+  const percentPlayed =
       this.videoSlot_.currentTime * 100.0 / this.videoSlot_.duration;
   if (percentPlayed >= this.quartileEvents_[this.nextQuartileIndex_].value) {
-    var lastQuartileEvent = this.quartileEvents_[this.nextQuartileIndex_].event;
+    const lastQuartileEvent =
+        this.quartileEvents_[this.nextQuartileIndex_].event;
     this.eventsCallbacks_[lastQuartileEvent]();
     this.nextQuartileIndex_ += 1;
   }
@@ -178,9 +179,9 @@ VpaidVideoPlayer.prototype.updateVideoSlot_ = function() {
     this.slot_.appendChild(this.videoSlot_);
   }
   this.updateVideoPlayerSize_();
-  var foundSource = false;
-  var videos = this.parameters_.videos || [];
-  for (var i = 0; i < videos.length; i++) {
+  let foundSource = false;
+  const videos = this.parameters_.videos || [];
+  for (let i = 0; i < videos.length; i++) {
     // Choose the first video with a supported mimetype.
     if (this.videoSlot_.canPlayType(videos[i].mimetype) != '') {
       this.videoSlot_.setAttribute('src', videos[i].url);
@@ -220,7 +221,7 @@ VpaidVideoPlayer.prototype.stopAd = function() {
   this.log('Stopping ad');
   // Calling AdStopped immediately terminates the ad. Setting a timeout allows
   // events to go through.
-  var callback = this.callEvent_.bind(this);
+  const callback = this.callEvent_.bind(this);
   setTimeout(callback, 75, ['AdStopped']);
 };
 
@@ -279,7 +280,7 @@ VpaidVideoPlayer.prototype.collapseAd = function() {
  */
 VpaidVideoPlayer.prototype.skipAd = function() {
   this.log('skipAd');
-  var skippableState = this.attributes_['skippableState'];
+  const skippableState = this.attributes_['skippableState'];
   if (skippableState) {
     this.callEvent_('AdSkipped');
   }
@@ -294,7 +295,7 @@ VpaidVideoPlayer.prototype.skipAd = function() {
 VpaidVideoPlayer.prototype.subscribe = function(
     aCallback, eventName, aContext) {
   this.log('Subscribe ' + eventName);
-  var callBack = aCallback.bind(aContext);
+  const callBack = aCallback.bind(aContext);
   this.eventsCallbacks_[eventName] = callBack;
 };
 
@@ -423,6 +424,6 @@ VpaidVideoPlayer.prototype.callEvent_ = function(eventType) {
  * Main function called by wrapper to get the VPAID ad.
  * @return {Object} The VPAID compliant ad.
  */
-var getVPAIDAd = function() {
+const getVPAIDAd = function() {
   return new VpaidVideoPlayer();
 };

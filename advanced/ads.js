@@ -6,7 +6,7 @@
 /**
  * Shows how to use the IMA SDK to request and display ads.
  */
-var Ads = function(application, videoPlayer) {
+const Ads = function(application, videoPlayer) {
   this.application_ = application;
   this.videoPlayer_ = videoPlayer;
   this.customClickDiv_ = document.getElementById('customClick');
@@ -37,7 +37,7 @@ Ads.prototype.initialUserAction = function() {
 };
 
 Ads.prototype.requestAds = function(adTagUrl) {
-  var adsRequest = new google.ima.AdsRequest();
+  const adsRequest = new google.ima.AdsRequest();
   adsRequest.adTagUrl = adTagUrl;
   adsRequest.linearAdSlotWidth = this.videoPlayer_.width;
   adsRequest.linearAdSlotHeight = this.videoPlayer_.height;
@@ -71,7 +71,7 @@ Ads.prototype.contentEnded = function() {
 
 Ads.prototype.onAdsManagerLoaded_ = function(adsManagerLoadedEvent) {
   this.application_.log('Ads loaded.');
-  var adsRenderingSettings = new google.ima.AdsRenderingSettings();
+  const adsRenderingSettings = new google.ima.AdsRenderingSettings();
   adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
   this.adsManager_ = adsManagerLoadedEvent.getAdsManager(
       this.videoPlayer_.contentPlayer, adsRenderingSettings);
@@ -92,18 +92,19 @@ Ads.prototype.startAdsManager_ = function(adsManager) {
   // Handle errors.
   adsManager.addEventListener(
       google.ima.AdErrorEvent.Type.AD_ERROR, this.onAdError_, false, this);
-  var events = [
+  const events = [
     google.ima.AdEvent.Type.ALL_ADS_COMPLETED, google.ima.AdEvent.Type.CLICK,
     google.ima.AdEvent.Type.COMPLETE, google.ima.AdEvent.Type.FIRST_QUARTILE,
     google.ima.AdEvent.Type.LOADED, google.ima.AdEvent.Type.MIDPOINT,
     google.ima.AdEvent.Type.PAUSED, google.ima.AdEvent.Type.STARTED,
     google.ima.AdEvent.Type.THIRD_QUARTILE
   ];
-  for (var index in events) {
+  for (const index in events) {
     adsManager.addEventListener(events[index], this.onAdEvent_, false, this);
   }
 
-  var initWidth, initHeight;
+  let initWidth;
+  let initHeight;
   if (this.application_.fullscreen) {
     initWidth = this.application_.fullscreenWidth;
     initHeight = this.application_.fullscreenHeight;
@@ -136,7 +137,7 @@ Ads.prototype.onAdEvent_ = function(adEvent) {
   if (adEvent.type == google.ima.AdEvent.Type.CLICK) {
     this.application_.adClicked();
   } else if (adEvent.type == google.ima.AdEvent.Type.LOADED) {
-    var ad = adEvent.getAd();
+    const ad = adEvent.getAd();
     if (!ad.isLinear()) {
       this.onContentResumeRequested_();
     }
