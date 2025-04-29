@@ -1,7 +1,7 @@
 <html>
   <head>
     <title>IMA HTML5 Simple Demo</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="style.css">
   </head>
 
   <body>
@@ -11,10 +11,14 @@
           <source src="https://storage.googleapis.com/gvabox/media/samples/stock.mp4"></source>
         </video>
       </div>
+      <!-- START_EXCLUDE -->
       <div id="adContainer"></div>
+      <!-- END_EXCLUDE -->
     </div>
     <button id="playButton">Play</button>
-    <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-    <script type="text/javascript" src="ads.js"></script>
+    <!-- START_EXCLUDE -->
+    <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <!-- END_EXCLUDE -->
+    <script src="ads.js"></script>
   </body>
 </html>
