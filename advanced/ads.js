@@ -60,7 +60,7 @@ Ads.prototype.resume = function() {
 
 Ads.prototype.resize = function(width, height) {
   if (this.adsManager_) {
-    this.adsManager_.resize(width, height, google.ima.ViewMode.FULLSCREEN);
+    this.adsManager_.resize(width, height);
   }
 };
 
@@ -112,7 +112,7 @@ Ads.prototype.startAdsManager_ = function(adsManager) {
     initWidth = this.videoPlayer_.width;
     initHeight = this.videoPlayer_.height;
   }
-  adsManager.init(initWidth, initHeight, google.ima.ViewMode.NORMAL);
+  adsManager.init(initWidth, initHeight);
 
   adsManager.start();
 };

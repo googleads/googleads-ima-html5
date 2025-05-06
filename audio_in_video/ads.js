@@ -29,7 +29,7 @@ window.addEventListener('resize', function(event) {
   if (adsManager) {
     let width = videoElement.clientWidth;
     let height = videoElement.clientHeight;
-    adsManager.resize(width, height, google.ima.ViewMode.NORMAL);
+    adsManager.resize(width, height);
   }
 });
 
@@ -123,7 +123,7 @@ function loadAds(event) {
   const width = videoElement.clientWidth;
   const height = videoElement.clientHeight;
   try {
-    adsManager.init(width, height, google.ima.ViewMode.NORMAL);
+    adsManager.init(width, height);
     adsManager.start();
   } catch (adError) {
     // Play the video without ads, if an error occurs
