@@ -1,13 +1,14 @@
+/* [START player_css] */
 #mainContainer {
   position: relative;
   width: 640px;
   height: 360px;
 }
 
-#content, #adContainer {
+#content {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   width: 640px;
   height: 360px;
 }
@@ -35,3 +36,14 @@
   -webkit-box-shadow: inset 0 -2px #22303f;
   box-shadow: inset 0 -2px #22303f;
 }
+/* [END player_css] */
+
+/* [START ad_container_css] */
+#adContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 640px;
+  height: 360px;
+}
+/* [END ad_container_css] */

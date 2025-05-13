@@ -3,25 +3,29 @@
 // Note that this example is provided "as is", WITHOUT WARRANTY
 // of any kind either expressed or implied.
 
+// [START init_player]
 let adsManager;
 let adsLoader;
 let adDisplayContainer;
-let intervalTimer;
 let isAdPlaying;
 let isContentFinished;
 let playButton;
 let videoContent;
+let adContainer;
 
-/**
- * Initializes IMA setup.
- */
-function init() {
+// On window load, attach an event to the play button click
+// that triggers playback of the video element.
+window.addEventListener('load', function(event) {
   videoContent = document.getElementById('contentElement');
+  adContainer = document.getElementById('adContainer');
+  adContainer.addEventListener('click', adContainerClick);
   playButton = document.getElementById('playButton');
   playButton.addEventListener('click', playAds);
   setUpIMA();
-}
+});
+// [END init_player]
 
+// [START ima_setup]
 /**
  * Sets up IMA ad display container, ads loader, and makes an ad request.
  */
@@ -65,17 +69,19 @@ function setUpIMA() {
 
   adsLoader.requestAds(adsRequest);
 }
+// [END ima_setup]
 
+// [START create_ad_display_container]
 /**
  * Sets the 'adContainer' div as the IMA ad display container.
  */
 function createAdDisplayContainer() {
-  // We assume the adContainer is the DOM id of the element that will house
-  // the ads.
   adDisplayContainer = new google.ima.AdDisplayContainer(
       document.getElementById('adContainer'), videoContent);
 }
+// [END create_ad_display_container]
 
+// [START play_ads]
 /**
  * Loads the video content and initializes IMA ad playback.
  */
@@ -86,17 +92,19 @@ function playAds() {
   adDisplayContainer.initialize();
 
   try {
-    // Initialize the ads manager. Ad rules playlist will start at this time.
+    // Initialize the ads manager. This call starts ad playback for VMAP ads.
     adsManager.init(640, 360);
     // Call play to start showing the ad. Single video and overlay ads will
-    // start at this time; the call will be ignored for ad rules.
+    // start at this time; the call will be ignored for VMAP ads.
     adsManager.start();
   } catch (adError) {
     // An error may be thrown if there was a problem with the VAST response.
     videoContent.play();
   }
 }
+// [END play_ads]
 
+// [START ads_loader_events]
 /**
  * Handles the ad manager loading and sets ad event listeners.
  * @param {!google.ima.AdsManagerLoadedEvent} adsManagerLoadedEvent
@@ -110,62 +118,19 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
       adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
 
   // Add listeners to the required events.
+  // [START ads_manager_error_handler]
   adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
+  // [END ads_manager_error_handler]
+  // [START ads_manager_play_pause_handlers]
   adsManager.addEventListener(
       google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, onContentPauseRequested);
   adsManager.addEventListener(
       google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,
       onContentResumeRequested);
-  adsManager.addEventListener(
-      google.ima.AdEvent.Type.ALL_ADS_COMPLETED, onAdEvent);
-
-  // Listen to any additional events, if necessary.
-  adsManager.addEventListener(google.ima.AdEvent.Type.LOADED, onAdEvent);
-  adsManager.addEventListener(google.ima.AdEvent.Type.STARTED, onAdEvent);
-  adsManager.addEventListener(google.ima.AdEvent.Type.COMPLETE, onAdEvent);
-}
-
-/**
- * Handles actions taken in response to ad events.
- * @param {!google.ima.AdEvent} adEvent
- */
-function onAdEvent(adEvent) {
-  // Retrieve the ad from the event. Some events (for example,
-  // ALL_ADS_COMPLETED) don't have ad object associated.
-  const ad = adEvent.getAd();
-  switch (adEvent.type) {
-    case google.ima.AdEvent.Type.LOADED:
-      // This is the first event sent for an ad - it is possible to
-      // determine whether the ad is a video ad or an overlay.
-      if (!ad.isLinear()) {
-        // Position AdDisplayContainer correctly for overlay.
-        // Use ad.width and ad.height.
-        videoContent.play();
-      }
-      break;
-    case google.ima.AdEvent.Type.STARTED:
-      // This event indicates the ad has started - the video player
-      // can adjust the UI, for example display a pause button and
-      // remaining time.
-      if (ad.isLinear()) {
-        // For a linear ad, a timer can be started to poll for
-        // the remaining time.
-        intervalTimer = setInterval(
-            function() {
-              // Example: const remainingTime = adsManager.getRemainingTime();
-            },
-            300);  // every 300ms
-      }
-      break;
-    case google.ima.AdEvent.Type.COMPLETE:
-      // This event indicates the ad has finished - the video player
-      // can perform appropriate UI actions, such as removing the timer for
-      // remaining time detection.
-      if (ad.isLinear()) {
-        clearInterval(intervalTimer);
-      }
-      break;
-  }
+  // [END ads_manager_play_pause_handlers]
+  // [START ads_manager_loaded_handler]
+  adsManager.addEventListener(google.ima.AdEvent.Type.LOADED, onAdLoaded);
+  // [END ads_manager_loaded_handler]
 }
 
 /**
@@ -177,7 +142,25 @@ function onAdError(adErrorEvent) {
   console.log(adErrorEvent.getError());
   adsManager.destroy();
 }
+// [END ads_loader_events]
 
+// [START ad_container_click]
+/**
+ * Handles clicks on the ad container to support expected play and pause
+ * behavior on mobile devices.
+ * @param {!Event} event
+ */
+function adContainerClick(event) {
+  console.log("ad container clicked");
+  if(videoContent.paused) {
+    videoContent.play();
+  } else {
+    videoContent.pause();
+  }
+}
+// [END ad_container_click]
+
+// [START play_pause_responses]
 /**
  * Pauses video content and sets up ad UI.
  */
@@ -202,6 +185,29 @@ function onContentResumeRequested() {
   // implement this function when necessary.
   // setupUIForContent();
 }
+// [END play_pause_responses]
 
-// Wire UI element references and UI event listeners.
-init();
+// [START ad_loaded_handler]
+/**
+ * Handles ad loaded event to support non-linear ads. Continues content playback
+ * if the ad is not linear.
+ * @param {!google.ima.AdEvent} adEvent
+ */
+function onAdLoaded(adEvent) {
+  let ad = adEvent.getAd();
+  if (!ad.isLinear()) {
+    videoContent.play();
+  }
+}
+// [END ad_loaded_handler]
+
+// [START resize_handler]
+window.addEventListener('resize', function(event) {
+  console.log("window resized");
+  if(adsManager) {
+    let width = videoContent.clientWidth;
+    let height = videoContent.clientHeight;
+    adsManager.resize(width, height, google.ima.ViewMode.NORMAL);
+  }
+});
+// [END resize_handler]
