@@ -1,7 +1,8 @@
 ## Google Ads HTML5 IMA SDK
 
-This project hosts samples for the
-[HTML5 IMA SDK](//developers.google.com/interactive-media-ads/docs/sdks/html5/client-side).
+This project hosts samples for the [HTML5 IMA
+SDK](//developers.google.com/interactive-media-ads/docs/sdks/html5/client-side)
+and code snippets for `developers.google.com` website.
 
 ### Samples Breakdown
 
@@ -28,13 +29,22 @@ This project hosts samples for the
 
 *   Your favorite text editor
 *   An HTML5 compliant browser
-*   A webserver on which to host the sample
+*   A web server on which to host the sample
 
 ### Downloads
 
 Check out the
 [releases section](https://github.com/googleads/googleads-ima-html5/releases)
 for downloadable zips of the source.
+
+### Documentation Snippets
+
+This repository contains code snippets used in developer documentation for the
+[IMA HTML5 SDK](https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/get-started).
+
+By including the code snippets from documentation in this GitHub repository's
+`/doc_snippets` directory, developers gain more context on how to implement a
+specific API.
 
 ### More Info
 
