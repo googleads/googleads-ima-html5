@@ -2,7 +2,7 @@ console.log("initializing IMA");
 adContainer = document.getElementById('ad-container');
 adDisplayContainer = new google.ima.AdDisplayContainer(adContainer, videoElement);
 
-const NETWORK_CODE = '12345678901';
+const NETWORK_CODE = '21775744923';
 
 /**
  * Sample signal collector function.

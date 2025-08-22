@@ -42,9 +42,8 @@ for downloadable zips of the source.
 This repository contains code snippets used in developer documentation for the
 [IMA HTML5 SDK](https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/get-started).
 
-By including the code snippets from documentation in this GitHub repository's
-`/doc_snippets` directory, developers gain more context on how to implement a
-specific API.
+The `/doc_snippets` directory contains code snippets from our developer
+documentation to provide more context for implementing specific APIs.
 
 ### More Info
 
