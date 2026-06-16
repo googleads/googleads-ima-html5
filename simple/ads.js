@@ -37,9 +37,9 @@ function setUpIMA() {
   // Listen and respond to ads loaded and error events.
   adsLoader.addEventListener(
       google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
-      onAdsManagerLoaded, false);
+      onAdsManagerLoaded);
   adsLoader.addEventListener(
-      google.ima.AdErrorEvent.Type.AD_ERROR, onAdError, false);
+      google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
 
   // An event listener to tell the SDK that our content video
   // is completed so the SDK can play any post-roll ads.
